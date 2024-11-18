@@ -1,3 +1,5 @@
+import { Navbar } from "@/layouts/home";
+
 export default function HomeLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,8 @@ export default function HomeLayout({
 }>) {
   return (
     <main>
-        {children}
+      <Navbar />
+      {children}
     </main>
   );
 }
