@@ -29,9 +29,6 @@ body {
 }
 
 .homeSlider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: #171717;
   position: relative;
   height: calc(100vh - 194px);
@@ -42,10 +39,15 @@ body {
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center;
+  transition: all 200ms ease-out;
   object-fit: contain;
   height: 100%;
   width: 100%;
   margin: 0 auto;
   top: 0;
+}
+
+.footer {
+  background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(24,32,22,1) 50%, rgba(47,62,49,1) 100%);
 }

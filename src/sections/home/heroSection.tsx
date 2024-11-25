@@ -13,8 +13,8 @@ export const HeroSection = () => {
         console.log(scrollY)
         if (image) {    
           // Apply parallax effect and opacity change
-          image.style.transform = `translateY(${scrollY * 0.2}px)`; // Moves image down
-          image.style.opacity = `${Math.max(1 - scrollY / 500, 0)}`; // Reduces opacity
+          image.style.transform = `translateY(${scrollY * 0.5}px)`; // Moves image down
+          image.style.opacity = `${Math.max(1 - scrollY / 1000, 0)}`; // Reduces opacity
         }
     };
 
@@ -29,21 +29,21 @@ export const HeroSection = () => {
 
   
   return (
-    <div className="relative h-[100vh]">
-      <section className="homeSlider flex align-center justify-center">
+    <div className="relative">
+      <section className="homeSlider">
         {/* Hero Image */}
         <img
           id="hero-image"
-          src="/home.jpg" // Replace with your image path
+          src="/home.webp" // Replace with your image path
           alt="Hero"
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className="absolute top-0 left-0 w-full h-full object-fill"
         />
 
         {/* Text Content */}
-        <div className="absolute text-center text-white z-12">
+        {/* <div className="absolute text-center text-white z-12">
           <h1 className="text-4xl font-bold">Hero Title</h1>
           <p className="mt-2 text-lg">Subtitle or description here</p>
-        </div>
+        </div> */}
       </section>
     </div>
   );

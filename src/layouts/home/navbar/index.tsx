@@ -4,8 +4,10 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
+  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu";
 import React from "react";
 
@@ -26,16 +28,18 @@ const productCategories = [
 
 export const Navbar = () => {
   return (
-    <nav className="relative bg-gray-800 text-black">
+    <nav className="sticky top-0 z-[1000] bg-gray-800 text-black">
       <div className="mx-auto px-4 flex items-center justify-between h-16">
         <div className="logo">
-          <Link href="/">MyLogo</Link>
+          <Link href="/">
+            <img className="w-[150x] h-[150px]" src="/logo-primary.png"/>
+          </Link>
         </div>
         <div className="hidden md:flex space-x-6">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent text-white">Products</NavigationMenuTrigger>
                 <NavigationMenuContent className="absolute left-0 w-screen bg-white shadow-md">
                   <div className="p-8 flex gap-[5rem]">
                     {productCategories.map((data, index) => (
@@ -56,10 +60,17 @@ export const Navbar = () => {
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
+              <NavigationMenuItem>
+              <Link href="/about-us" legacyBehavior passHref>
+                <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bg-transparent text-white`}>
+                  About Us
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        <div className="md:hidden">
+        <div className="md:hidden text-white">
           <button className="focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"

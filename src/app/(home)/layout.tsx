@@ -1,4 +1,4 @@
-import { Navbar } from "@/layouts/home";
+import { Footer, Navbar } from "@/layouts/home";
 
 export default function HomeLayout({
   children,
@@ -9,6 +9,7 @@ export default function HomeLayout({
     <main>
       <Navbar />
       {children}
+      <Footer />
     </main>
   );
 }
