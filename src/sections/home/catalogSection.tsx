@@ -1,35 +1,28 @@
+"use client";
 
-const CatalogData = [
+import api from "@/lib/api";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
+
+interface Category {
+  id: number,
+  name: string,
+  picture: string,
+  status: string
+}
+
+const colorData = [
   {
-    title: 'Sportswear',
-    image: 'https://media.istockphoto.com/id/466367844/photo/clothes-make-running.jpg?s=1024x1024&w=is&k=20&c=sHJhf4AhE-BoUwGWqcbDkiiiumyYBoTiioMb29EeVx8=',
     colorClass: 'bg-[#e1be69]',
   },
   {
-    title: 'Activewear',
-    image: 'https://media.istockphoto.com/id/466367844/photo/clothes-make-running.jpg?s=1024x1024&w=is&k=20&c=sHJhf4AhE-BoUwGWqcbDkiiiumyYBoTiioMb29EeVx8=',
     colorClass: 'bg-[#e62531]',
   },
-  {
-    title: 'Teamwear',
-    image: 'https://media.istockphoto.com/id/466367844/photo/clothes-make-running.jpg?s=1024x1024&w=is&k=20&c=sHJhf4AhE-BoUwGWqcbDkiiiumyYBoTiioMb29EeVx8=',
-    colorClass: 'bg-[#89bba8]',
-  },
-  {
-    title: 'Caps',
-    image: 'https://media.istockphoto.com/id/466367844/photo/clothes-make-running.jpg?s=1024x1024&w=is&k=20&c=sHJhf4AhE-BoUwGWqcbDkiiiumyYBoTiioMb29EeVx8=',
-    colorClass: 'bg-[#95d4e4]',
-  },
-  {
-    title: 'Bags',
-    image: 'https://media.istockphoto.com/id/466367844/photo/clothes-make-running.jpg?s=1024x1024&w=is&k=20&c=sHJhf4AhE-BoUwGWqcbDkiiiumyYBoTiioMb29EeVx8=',
-    colorClass: 'bg-[#ccbeb0]',
-  }
 ]
 
-const CatalogItem = ({image ,title ,color}: {image: string, title:string, color: string}) => {
+const CatalogItem = ({id, image ,title ,color}: {id: number, image: string, title:string, color: string}) => {
   return (
-    <div className="flex align-center group relative h-96 overflow-hidden rounded-lg bg-white shadow-lg">
+    <Link href={`shop/${id}`} className="flex align-center group relative h-96 overflow-hidden rounded-lg bg-white shadow-lg cursor-pointer">
       {/* Image */}
       <img
         src={image}
@@ -38,19 +31,30 @@ const CatalogItem = ({image ,title ,color}: {image: string, title:string, color:
       />
       {/* Overlay Text */}
       <div className={`absolute inset-0 flex justify-center bg-opacity-30 text-white text-lg font-semibold transition-opacity duration-1000 group-hover:bg-opacity-60 ${color}`}>
-        <p className="absolute z-20 bottom-6 text-white text-[25px] font-semibold transition-all duration-500 group-hover:bottom-1 group-hover:text-[18px]">
+        <p className="absolute z-20 bottom-6 text-black text-[25px] font-semibold transition-all duration-500 group-hover:bottom-1 group-hover:text-[18px] group-hover:text-white">
           {title}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
 
 export const Catalog = () => {
+  const {data: categories} = useQuery({
+    queryKey: ['catalogs'],
+    queryFn: async () => {
+      const data = await api('api/v2/category/getCategory', {
+        method: 'GET'
+      });
+
+      return data.categories as Category[];
+    }
+  })
+
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
-        {CatalogData.map((data,index) => (
-          <CatalogItem key={index} title={data.title} image={data.image} color={data.colorClass} />
+        {categories?.map((data,index) => (
+          <CatalogItem key={index} id={data.id} title={data.name} image={data.picture} color={colorData[index].colorClass} />
         ))}
       </div>
       );

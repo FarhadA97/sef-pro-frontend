@@ -5,6 +5,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Navigation } from 'swiper/modules';
 
+const ProductData = [
+  { colorClass: 'bg-[#e1be69]' },
+  { colorClass: 'bg-[#e62531]' },
+  { colorClass: 'bg-[#89bba8]' },
+  { colorClass: 'bg-[#95d4e4]' },
+  { colorClass: 'bg-[#ccbeb0]' },
+];
+
 // CatalogItem Component
 const CatalogItem = ({ image, title, color }: { image: string; title: string; color: string }) => {
   return (
@@ -28,21 +36,21 @@ const CatalogItem = ({ image, title, color }: { image: string; title: string; co
 };
 
 // Slider Component
-const CatalogSlider = ({ categories }: { categories: { image: string; title: string; color: string }[] }) => {
+const CatalogSlider = ({ categories }: { categories: { id: number, picture: string; name: string; }[] }) => {
   return (
     <Swiper
       navigation={true}
       modules={[Navigation]}
-      slidesPerView={1.5}
+      slidesPerView={1}
       breakpoints={{
-        768: { slidesPerView: 2.5, spaceBetween: 0 },
-        1024: { slidesPerView: 6 },
+        768: { slidesPerView: 2.5, spaceBetween: 10 },
+        1024: { slidesPerView: 'auto', spaceBetween: 10 },
       }}
       className="w-full my-8"
     >
       {categories.map((category, index) => (
-        <SwiperSlide key={index}>
-          <CatalogItem image={category.image} title={category.title} color={category.color} />
+        <SwiperSlide className='!w-fit' key={index}>
+          <CatalogItem image={category.picture} title={category.name} color={ProductData[Math.floor(Math.random() * ProductData.length)].colorClass} />
         </SwiperSlide>
       ))}
     </Swiper>

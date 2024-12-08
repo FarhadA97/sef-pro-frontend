@@ -10,7 +10,7 @@ export const HeroSection = () => {
 
         const scrollY = window.scrollY; // Current scroll position
         const image = document.getElementById("hero-image");
-        console.log(scrollY)
+
         if (image) {    
           // Apply parallax effect and opacity change
           image.style.transform = `translateY(${scrollY * 0.5}px)`; // Moves image down

@@ -1,31 +1,32 @@
 "use client";
 
 import React, { useState } from "react";
+import { Product } from ".";
 
 interface ProductSpecsFormProps {
-  sizes: string[];
+  product: Product;
   onAddToCart?: (size: string, quantity: number) => void;
 }
 
 export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
-  sizes,
+  product,
 }) => {
   const [selectedSize, setSelectedSize] = useState<null | string>(null);
-  const [quantity, setQuantity] = useState(1);
+  // const [quantity, setQuantity] = useState(1);
 
-  const handleQuantityChange = (value: number) => {
-    if (value > 0) setQuantity(value);
-  };
+  // const handleQuantityChange = (value: number) => {
+  //   if (value > 0) setQuantity(value);
+  // };
 
-  const handleAddToCart = () => {
-    // onAddToCart(selectedSize, quantity);
-  };
+  // const handleAddToCart = () => {
+  //   // onAddToCart(selectedSize, quantity);
+  // };
 
   return (
     <form className="flex flex-col gap-8 my-8 p-5 border rounded-md">
       {/* Size Selector */}
       <div>
-        <p className="text-2xl mb-5">$24.00</p>
+        <p className="text-2xl mb-5">${product.price.toFixed(2)}</p>
         <label
           htmlFor="size"
           className="block text-sm font-medium text-gray-700 mb-1"
@@ -39,7 +40,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
           className="block w-[250px] p-2 border border-gray-300 rounded-sm shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         >
           <option defaultChecked>Choose an option</option>
-          {sizes.map((size) => (
+          {product.sizes.split('/').map((size) => (
             <option key={size} value={size}>
               {size}
             </option>
@@ -48,7 +49,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
       </div>
 
       {/* Quantity Selector */}
-      <div className="flex gap-5">
+      {/* <div className="flex gap-5">
         <div>
           <label
             htmlFor="quantity"
@@ -88,7 +89,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
         >
           Add to Cart
         </button>
-      </div>
+      </div> */}
 
       {/* Add to Cart Button */}
     </form>
