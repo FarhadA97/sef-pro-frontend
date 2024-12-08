@@ -15,8 +15,11 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.460.0",
     "next": "14.2.18",
+    "photoswipe": "^5.4.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-photoswipe-gallery": "^3.0.2",
+    "swiper": "^11.1.15",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7"
   },

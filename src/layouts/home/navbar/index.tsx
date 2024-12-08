@@ -29,7 +29,7 @@ const productCategories = [
 export const Navbar = () => {
   return (
     <nav className="sticky top-0 z-[1000] bg-gray-800 text-black">
-      <div className="mx-auto px-4 flex items-center justify-between h-16">
+      <div className="container mx-auto px-4 flex items-center justify-between h-16">
         <div className="logo">
           <Link href="/">
             <img className="w-[150x] h-[150px]" src="/logo-primary.png"/>
