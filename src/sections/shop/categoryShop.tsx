@@ -6,6 +6,7 @@ import api from "@/lib/api";
 import Link from "next/link";
 import { SkeletonCatalog } from "@/components/skeletons";
 import { Loader } from "@/components/loader/loader";
+import { ProductCard } from ".";
 
 interface SubCategory {
   id: number,
@@ -21,35 +22,7 @@ interface Product {
   price: number,
 }
 
-
-export const ProductCard = ({ product }: { product: { id: string, images: string[], title: string, price: number } }) => {
-  return (
-    <Link href={`/product/${product.id}`} className="relative group border overflow-hidden cursor-pointer">
-      {/* Image and Content Container */}
-      <div className="h-full transform group-hover:-translate-y-12 transition-transform duration-300">
-        {/* Product Image */}
-        <img
-          src={product.images[0]}
-          alt={product.title}
-          className="w-full h-[400px] object-fit"
-        />
-
-        {/* Title and Price */}
-        <div className="p-4">
-          <h3 className="text-lg font-semibold">{product.title}</h3>
-          <p className="text-gray-500">${product.price.toFixed(2)}</p>
-        </div>
-      </div>
-
-      {/* Hover Effect: Customize */}
-      <div className="absolute bottom-0 left-0 w-full h-12 bg-[#111710] bg-opacity-80 text-white text-center flex items-center justify-center translate-y-12 group-hover:translate-y-0 transition-transform duration-300">
-        <span className="text-lg font-semibold">Customize</span>
-      </div>
-    </Link>
-  );
-};
-
-export const Shop = ({ categoryId }: { categoryId: string }) => {
+export const CategoryShop = ({ categoryId, subCategoryId }: { categoryId: string, subCategoryId: string }) => {
   const {
     data: subCategories,
     isLoading,
@@ -70,9 +43,9 @@ export const Shop = ({ categoryId }: { categoryId: string }) => {
     isLoading: isLoadingProducts,
     isError: isErrorProducts
   } = useQuery({
-    queryKey: [`products-category-${categoryId}`],
+    queryKey: [`products-subCategory-${subCategoryId}`],
     queryFn: async () => {
-      const data = await api(`api/v2/products/getProduct?categoryId=${categoryId}`, {
+      const data = await api(`api/v2/products/getProduct?subCategoryId=${subCategoryId}`, {
         method: 'GET'
       });
 
@@ -87,11 +60,11 @@ export const Shop = ({ categoryId }: { categoryId: string }) => {
         {isLoading || isError || !subCategories
           ? <div className="p-5"><SkeletonCatalog height="h-[300px]" /></div>
           : subCategories.length > 0
-          && <CatalogSlider categories={subCategories!} categoryId={categoryId} />
+          && <CatalogSlider categories={subCategories!} subCategoryId={Number(subCategoryId)} categoryId={categoryId} />
         }
       </div>
       <div className="mb-5">
-        <h1 className="mt-5 text-3xl font-medium">All Products</h1>
+        <h1 className="mt-5 text-3xl font-medium">{subCategories?.find(sub => sub.id === Number(subCategoryId))?.name || "Products"}</h1>
         {
           isLoadingProducts
           ? <div className="my-8"><Loader /></div>

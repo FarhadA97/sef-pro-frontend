@@ -4,13 +4,25 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Navigation } from 'swiper/modules';
+import Link from 'next/link';
+
+type category = {
+  id: number,
+  picture: string,
+  name: string;
+}
+interface CatalogSliderProps {
+  categories: category[];
+  categoryId: string | number;
+  subCategoryId?: string | number;
+}
 
 const ProductData = [
-  { colorClass: 'bg-[#e1be69]' },
-  { colorClass: 'bg-[#e62531]' },
-  { colorClass: 'bg-[#89bba8]' },
-  { colorClass: 'bg-[#95d4e4]' },
-  { colorClass: 'bg-[#ccbeb0]' },
+  { colorClass: 'bg-[#e1be69]', borderClass: 'border-[#e1be69]' },
+  { colorClass: 'bg-[#e62531]', borderClass: 'border-[#e62531]' },
+  { colorClass: 'bg-[#89bba8]', borderClass: 'border-[#89bba8]' },
+  { colorClass: 'bg-[#95d4e4]', borderClass: 'border-[#95d4e4]' },
+  { colorClass: 'bg-[#ccbeb0]', borderClass: 'border-[#ccbeb0]' },
 ];
 
 // CatalogItem Component
@@ -36,7 +48,13 @@ const CatalogItem = ({ image, title, color }: { image: string; title: string; co
 };
 
 // Slider Component
-const CatalogSlider = ({ categories }: { categories: { id: number, picture: string; name: string; }[] }) => {
+const CatalogSlider = ({
+  categories,
+  categoryId,
+  subCategoryId
+}: CatalogSliderProps ) => {
+
+
   return (
     <Swiper
       navigation={true}
@@ -46,13 +64,20 @@ const CatalogSlider = ({ categories }: { categories: { id: number, picture: stri
         768: { slidesPerView: 2.5, spaceBetween: 10 },
         1024: { slidesPerView: 'auto', spaceBetween: 10 },
       }}
-      className="w-full my-8"
     >
-      {categories.map((category, index) => (
-        <SwiperSlide className='!w-fit' key={index}>
-          <CatalogItem image={category.picture} title={category.name} color={ProductData[Math.floor(Math.random() * ProductData.length)].colorClass} />
-        </SwiperSlide>
-      ))}
+      {categories.map((category, index) => {
+        const slideColor = ProductData[Math.floor(Math.random() * ProductData.length)].colorClass
+        const borderColor = ProductData.find(p => p.colorClass === slideColor)?.borderClass
+
+        return (
+          <SwiperSlide className={`!w-fit my-5 ${category.id === subCategoryId && `border-2 rounded-lg ${borderColor}`}`} key={index}>
+            <Link href={`/shop/${categoryId}/category/${category.id}`} className='!cursor-pointer'>
+
+              <CatalogItem image={category.picture} title={category.name} color={slideColor} />
+            </Link>
+          </SwiperSlide>
+        )
+      })}
     </Swiper>
   );
 };

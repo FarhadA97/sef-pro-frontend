@@ -5,6 +5,8 @@ import { ProductImages } from "./productImages";
 import { ProductSpecsForm } from "./productSpecsForm";
 import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
+import { ProductDetailsSkeleton } from "@/components/skeletons";
+import { SearchXIcon } from "lucide-react";
 
 interface ProductPage {
   id: string;
@@ -20,9 +22,12 @@ export interface Product {
 }
 
 export const ProductPage: React.FC<ProductPage> = ({ id }) => {
-  console.log("ID", id);
-  const { data: product } = useQuery({
-    queryKey: ["product-details"],
+  const {
+    data: product,
+    isLoading,
+    isError
+  } = useQuery({
+    queryKey: [`product-details-${id}`],
     queryFn: async () => {
       const data = await api(`api/v2/products/getProduct?id=${id}`, {
         method: "GET",
@@ -31,15 +36,28 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
       return data.products as Product;
     },
   });
-  console.log(product);
+
+  if (isLoading) {
+    return <ProductDetailsSkeleton />
+  }
+
+  if (isError) {
+    return <div className="h-[600px] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-5">
+        <SearchXIcon width={100} height={100} />
+        <h1>Something went wrong! Couldn&apos;t load product details</h1>
+      </div>
+    </div>
+  }
+
   return (
-    <div className="container mx-auto px-5 md:px-20 py-8">
+    <div className="container mx-auto px-5 lg:px-20 py-8">
       {product && (
         <>
           <h1 className="text-3xl">{product.title}</h1>
-          <div className="mt-5 flex flex-col lg:flex-row gap-[5rem]">
+          <div className="mt-8 flex flex-col md:flex-row gap-8 lg:gap-[5rem]">
             <ProductImages images={product.images} />
-            <div className="pl-0 lg:pl-20 w-full lg:w-[40%]">
+            <div className="pl-0 lg:pl-18 w-full lg:w-[40%]">
               <ol>
                 {product.description.map((desc, index) => (
                   <li key={index}>

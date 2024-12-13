@@ -8,19 +8,38 @@ interface ProductImagesProps {
   images: string[];
 }
 
+// const SkeletonLoader = () => {
+//   return (
+//     <div className="flex flex-col lg:flex-row gap-6">
+//       {/* Vertical Bar with small image boxes */}
+//       <div className="flex flex-row lg:flex-col order-last lg:order-first gap-4">
+//         {/* 3 Placeholder boxes */}
+//         {Array(3).fill(0).map((_, index) => (
+//           <div key={index} className="w-20 h-20 bg-gray-300 rounded-md animate-pulse" />
+//         ))}
+//       </div>
+
+//       {/* Main Image Div */}
+//       <div className="flex-1">
+//         <div className="w-auto md:w-[400px] lg:w-[550px] h-[500px] bg-gray-300 rounded-md animate-pulse"></div>
+//       </div>
+//     </div>
+//   );
+// };
+
 export const ProductImages: React.FC<ProductImagesProps> = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images[0]);
 
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-col lg:flex-row gap-2">
       {/* Thumbnails */}
-      <div className="flex flex-col gap-3 border">
+      <div className="flex lg:flex-col gap-3 rounded border order-last lg:order-first wrap">
         {images.map((image, index) => (
           <button
             key={index}
             onClick={() => setSelectedImage(image)}
             className={`relative w-20 h-20 overflow-hidden ${
-              selectedImage === image ? "border-blue-500" : "border-gray-300"
+              selectedImage === image ? "p-2 border-2 rounded" : "border-gray-300"
             }`}
           >
             <img
@@ -33,7 +52,7 @@ export const ProductImages: React.FC<ProductImagesProps> = ({ images }) => {
       </div>
       {/* Main Image */}
       <Gallery options={{ showHideAnimationType:'none' }}>
-        <div className="relative w-[550px] h-[500px] cursor-pointer">
+        <div className="relative w-auto md:w-[400px] lg:w-[550px] h-[500px] cursor-pointer">
           <Item
             original={selectedImage}
             thumbnail={selectedImage}

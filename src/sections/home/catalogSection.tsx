@@ -1,5 +1,6 @@
 "use client";
 
+import { SkeletonCatalog } from "@/components/skeletons";
 import api from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -40,7 +41,11 @@ const CatalogItem = ({id, image ,title ,color}: {id: number, image: string, titl
 }
 
 export const Catalog = () => {
-  const {data: categories} = useQuery({
+  const {
+    data: categories,
+    isLoading,
+    isError
+  } = useQuery({
     queryKey: ['catalogs'],
     queryFn: async () => {
       const data = await api('api/v2/category/getCategory', {
@@ -50,6 +55,8 @@ export const Catalog = () => {
       return data.categories as Category[];
     }
   })
+    
+    if (isLoading || isError) return <SkeletonCatalog />
 
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">

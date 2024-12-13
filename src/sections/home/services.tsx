@@ -27,7 +27,7 @@ export const Services= () => {
       })
 
   return (
-    <section ref={ref} className="bg-gray-100 p-5 lg:p-16 rounded-lg">
+    <section ref={ref} className="bg-gray-100 p-5 lg:p-16 mb-5 rounded-lg">
       <div className="grid grid-cols-1 lg:grid-cols-[calc(50%-4em)_calc(50%-2em)] gap-8 lg:gap-0">
         <div className="flex flex-col gap-5 mb-8 md:mb-0 order-last lg:order-first">
           <h2 className="mb-0 lg:mb-4 text-2xl lg:text-4xl font-bold text-gray-800">

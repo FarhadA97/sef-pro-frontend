@@ -1,6 +1,6 @@
 export const AboutUs = () => {
     return (
-        <section className="p-0 lg:p-16">
+        <section>
         <div className="container mx-auto flex flex-col lg:flex-row items-center">
           {/* Left Side - Text */}
           <div className="flex flex-col gap-5 lg:w-1/2 mb-8 lg:mb-0">
