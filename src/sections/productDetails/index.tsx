@@ -12,6 +12,12 @@ interface ProductPage {
   id: string;
 }
 
+export interface colors {
+  id: number;
+  hexValue: string;
+  name: string;
+}
+
 export interface Product {
   id: string;
   title: string;
@@ -19,7 +25,9 @@ export interface Product {
   price: number;
   sizes: string;
   description: string[];
+  colors: colors[];
 }
+
 
 export const ProductPage: React.FC<ProductPage> = ({ id }) => {
   const {
@@ -29,11 +37,11 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
   } = useQuery({
     queryKey: [`product-details-${id}`],
     queryFn: async () => {
-      const data = await api(`api/v2/products/getProduct?id=${id}`, {
+      const data = await api(`api/v2/products/getAllProducts?id=${id}`, {
         method: "GET",
       });
 
-      return data.products as Product;
+      return data.product as Product;
     },
   });
 

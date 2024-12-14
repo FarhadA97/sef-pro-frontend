@@ -11,7 +11,7 @@ const UnderLine = () => {
 export const Footer = () => {
   return (
     <footer className="bg-black p-8 md:p-16 pb-5 footer">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-0 text-white">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-0 text-white">
         <div className="md:w-1/2 flex justify-center">
           <img
             src="/logo.png" // Replace with the actual logo image path

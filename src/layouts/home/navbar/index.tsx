@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Link from "next/link";
 import {
@@ -9,69 +11,149 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import api from "@/lib/api";
+import { NavbarSkeleton } from "@/components/skeletons/navbarItems";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import { ChevronRight, XIcon } from "lucide-react";
+import { SearchBar } from "@/components/searchInput/searchInput";
 
-const productCategories = [
-  {
-    name: "Category 1",
-    products: ["product 1", "product 2", "product 3"],
-  },
-  {
-    name: "Category 2",
-    products: ["product 1", "product 2", "product 3"],
-  },
-  {
-    name: "Category 3",
-    products: ["product 1", "product 2", "product 3"],
-  },
-];
+interface Category {
+  id: number,
+  name: string,
+  SubCategories: { id: number, name: string }[],
+  picture: string,
+  status: string
+}
+
+const Sidebar = ({categories, open, onClose}:{categories: Category[]; open:boolean ; onClose: () => void}) => {
+  return (
+    <Drawer open={open} direction="left">
+      <DrawerContent className="z-[10000]">
+        <div className="h-screen">
+          <DrawerHeader>
+            <DrawerTitle className="flex items-center justify-center"><img className="w-[150x] h-[120px]" src="/logo-primary.png" /></DrawerTitle>
+            <DrawerClose className="absolute right-2">
+              <button onClick={onClose}><XIcon /></button>
+            </DrawerClose>
+          </DrawerHeader>
+          <div className="p-4 pb-0">
+            <div className="flex space-x-2">
+              {
+                categories?.map((c) => (
+                  <span className="flex justify-between border-b w-full"> 
+                    <Link href={`/shop/${c.id}`} className="text-2xl">{c.name}</Link>
+                    <ChevronRight />
+                  </span>
+                ))
+              }
+            </div>
+          </div>
+          <DrawerFooter>
+          </DrawerFooter>
+        </div>
+      </DrawerContent>
+    </Drawer>
+  )
+}
 
 export const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const { data: productCategories, isLoading, isError } = useQuery({
+    queryKey: [],
+    queryFn: async () => {
+      const data = await api('api/v2/category/getCategory', {
+        method: 'GET'
+      });
+
+      return data.categories as Category[];
+    }
+  })
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setOpen(false); // Close the menu drawer
+      }
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Call handleResize initially to ensure correct state on load
+    handleResize();
+
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
+    <>
     <nav className="sticky top-0 z-[1000] bg-gray-800 text-black">
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
         <div className="logo">
           <Link href="/">
-            <img className="w-[150x] h-[150px]" src="/logo-primary.png"/>
+            <img className="w-[150x] h-[150px]" src="/logo-primary.png" />
           </Link>
         </div>
         <div className="hidden md:flex space-x-6">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
+                <SearchBar />
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent text-white">Products</NavigationMenuTrigger>
                 <NavigationMenuContent className="absolute left-0 w-screen bg-white shadow-md">
-                  <div className="p-8 flex gap-[5rem]">
-                    {productCategories.map((data, index) => (
-                      <div key={index}>
-                        <h5 className="font-semibold mb-2">{data.name}</h5>
-                        <ul>
-                          {data.products.map((product) => (
-                            <li key={product}>
-                              <p className="font-light">{product}</p>
-                            </li>
-                          ))}
-                          <li>
-                            <p className="font-medium mt-2">View All</p>
-                          </li>
-                        </ul>
+                  {
+                    isLoading || isError
+                      ? <NavbarSkeleton />
+                      : <div className="p-8 flex gap-[5rem]">
+                        {productCategories?.sort((a, b) => a.id - b.id).map((category, index) => (
+                          <div key={index}>
+                            <h5 className="font-semibold mb-2">{category.name}</h5>
+                            <ul>
+                              {category.SubCategories.sort((a, b) => a.id - b.id).map((s) => (
+                                <li key={s.name}>
+                                  <Link href={`/shop/${category.id}/category/${s.id}`}>
+                                    <p className="font-light mb-1">{s.name}</p>
+                                  </Link>
+                                </li>
+                              ))}
+                              <li>
+                                <Link href={`/shop/${category.id}`}>
+                                  <p className="font-medium mt-2">View All</p>
+                                </Link>
+                              </li>
+                            </ul>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                  }
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-              <Link href="/about-us" legacyBehavior passHref>
-                <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bg-transparent text-white`}>
-                  About Us
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
+                <Link href="/about-us" legacyBehavior passHref>
+                  <NavigationMenuLink className={`${navigationMenuTriggerStyle()} bg-transparent text-white`}>
+                    About Us
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        <div className="md:hidden text-white">
-          <button className="focus:outline-none">
+        <div className="md:hidden relative text-white">
+          <button onClick={() => setOpen(prev => !prev)} className="focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -90,5 +172,7 @@ export const Navbar = () => {
         </div>
       </div>
     </nav>
+    <Sidebar categories={productCategories!} open={open} onClose={() => setOpen(false)}  />
+    </>
   );
 };
