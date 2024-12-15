@@ -10,31 +10,31 @@ interface ProductSpecsFormProps {
 
 const ColorDisplay = ({colors}:{colors: colors[]} ) => {
   // Function to split ID and pad the first part with zero (for 3-digit IDs)
-  const formatId = (id: number) => {
-    const idStr = id.toString();
+  // const formatId = (id: number) => {
+  //   const idStr = id.toString();
 
-    // If the ID is 3 digits, pad the first part with zero
-    if (idStr.length === 3) {
-      const paddedId = idStr.padStart(4, "0");
-      const firstPart = paddedId.slice(0, 2); // Get the first two digits
-      const secondPart = paddedId.slice(2);  // Get the remaining part
-      return [firstPart, secondPart];
-    }
+  //   // If the ID is 3 digits, pad the first part with zero
+  //   if (idStr.length === 3) {
+  //     const paddedId = idStr.padStart(4, "0");
+  //     const firstPart = paddedId.slice(0, 2); // Get the first two digits
+  //     const secondPart = paddedId.slice(2);  // Get the remaining part
+  //     return [firstPart, secondPart];
+  //   }
 
-    // If the ID is 4 digits, simply split into two parts
-    if (idStr.length === 4) {
-      const firstPart = idStr.slice(0, 2);
-      const secondPart = idStr.slice(2);
-      return [firstPart, secondPart];
-    }
+  //   // If the ID is 4 digits, simply split into two parts
+  //   if (idStr.length === 4) {
+  //     const firstPart = idStr.slice(0, 2);
+  //     const secondPart = idStr.slice(2);
+  //     return [firstPart, secondPart];
+  //   }
 
-    return [idStr, ""]; // For other IDs (not 3 or 4 digits)
-  };
+  //   return [idStr, ""]; // For other IDs (not 3 or 4 digits)
+  // };
 
   return (
     <div className="flex w-full gap-5">
         {colors.map((color) => {
-        const [firstPart, secondPart] = formatId(color.id);
+        // const [firstPart, secondPart] = formatId(color.id);
         const hexValues = color.hexValue.split(", ");
         
         return (

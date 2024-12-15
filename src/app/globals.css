@@ -40,7 +40,7 @@ body {
   inset: 0;
   background-size: cover;
   transition: all 200ms ease-out;
-  object-fit: contain;
+  object-fit: cover;
   height: 100%;
   width: 100%;
   margin: 0 auto;

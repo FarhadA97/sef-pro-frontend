@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import CatalogSlider from "./catalogSlider";
 import api from "@/lib/api";
-import Link from "next/link";
 import { SkeletonCatalog } from "@/components/skeletons";
 import { Loader } from "@/components/loader/loader";
 import { ProductCard } from "./index";
@@ -155,7 +154,7 @@ export const CategoryShop = ({ categoryId, subCategoryId }: { categoryId: string
   const products = productsQueryData?.products;
 
   return (
-    <div className="mt-5 px-8">
+    <div className="mt-5 py-2 px-5 md:px-12 xl:px-20">
       <div className="py-5">
         <h1 className="text-3xl font-medium">Categories</h1>
         <CategorySection

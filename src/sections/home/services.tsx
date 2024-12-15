@@ -28,33 +28,29 @@ export const Services= () => {
 
   return (
     <section ref={ref} className="bg-gray-100 p-5 lg:p-16 mb-5 rounded-lg">
-      <div className="grid grid-cols-1 lg:grid-cols-[calc(50%-4em)_calc(50%-2em)] gap-8 lg:gap-0">
+      <div className="grid grid-cols-1 lg:grid-cols-[calc(50%-5em)_calc(50%-2em)] gap-8 lg:gap-0">
         <div className="flex flex-col gap-5 mb-8 md:mb-0 order-last lg:order-first">
           <h2 className="mb-0 lg:mb-4 text-2xl lg:text-4xl font-bold text-gray-800">
-            lorem ipsum dolor est.
+            Your Design, Our Craftsmanship
           </h2>
           <p className="text-lg lg:text-xl text-gray-600 leading-relaxed">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero at
-            voluptates sapiente doloremque sint eaque optio blanditiis
-            reiciendis
+          Looking for premium, tailored solutions? SEF PRO PTY LTD specializes in creating top-quality
+          custom sportswear, activewear, teamwear, caps, bags, and workwear. With over 7 years of experience,
+          we excel in providing personalized products that meet your unique design and branding needs.
+          Our expertise and vertically integrated production enable us to deliver truly one-of-a-kind solutions.
           </p>
-          <p className="text-lg lg:text-xl text-gray-600 leading-relaxed">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero at
-            voluptates sapiente doloremque sint eaque optio blanditiis
-            reiciendis
-          </p>
-          <ul className="flex flex-col gap-5">
+          <ul className="mt-2 flex flex-col gap-5">
             <animated.li style={slideInLeft} className="flex gap-2 items-center">
               <Check />
-              <p className="text-xl lg:text-2xl font-semibold">Service 1</p>
+              <p className="text-xl font-semibold">Tailored cuts and stitching to match your designs</p>
             </animated.li>
             <animated.li style={slideInLeft} className="flex gap-2 items-center">
               <Check />
-              <p className="text-xl lg:text-2xl font-semibold">Service 1</p>
+              <p className="text-xl font-semibold">Custom embroidery to showcase your logos with precision</p>
             </animated.li>
             <animated.li style={slideInLeft} className="flex gap-2 items-center">
               <Check />
-              <p className="text-xl lg:text-2xl font-semibold">Service 1</p>
+              <p className="text-xl font-semibold">High-quality prints to bring your branding to life</p>
 
             </animated.li>
           </ul>

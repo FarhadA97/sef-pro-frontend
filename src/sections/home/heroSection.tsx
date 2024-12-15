@@ -34,9 +34,9 @@ export const HeroSection = () => {
         {/* Hero Image */}
         <img
           id="hero-image"
-          src="/home.webp" // Replace with your image path
+          src="/heroImage.jpg" // Replace with your image path
           alt="Hero"
-          className="absolute top-0 left-0 w-full h-full object-fill"
+          className="absolute top-0 left-0 w-full h-full"
         />
 
         {/* Text Content */}

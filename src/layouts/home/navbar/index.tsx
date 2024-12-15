@@ -19,16 +19,14 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from "@/components/ui/drawer"
 import { ChevronRight, XIcon } from "lucide-react";
 import { SearchBar } from "@/components/searchInput/searchInput";
 
-interface Category {
+export interface Category {
   id: number,
   name: string,
   SubCategories: { id: number, name: string }[],
@@ -51,7 +49,7 @@ const Sidebar = ({categories, open, onClose}:{categories: Category[]; open:boole
             <div className="flex space-x-2">
               {
                 categories?.map((c) => (
-                  <span className="flex justify-between border-b w-full"> 
+                  <span key={c.id} className="flex justify-between border-b w-full"> 
                     <Link href={`/shop/${c.id}`} className="text-2xl">{c.name}</Link>
                     <ChevronRight />
                   </span>
@@ -70,7 +68,7 @@ const Sidebar = ({categories, open, onClose}:{categories: Category[]; open:boole
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { data: productCategories, isLoading, isError } = useQuery({
-    queryKey: [],
+    queryKey: ['all-categories'],
     queryFn: async () => {
       const data = await api('api/v2/category/getCategory', {
         method: 'GET'
@@ -100,7 +98,7 @@ export const Navbar = () => {
   return (
     <>
     <nav className="sticky top-0 z-[1000] bg-gray-800 text-black">
-      <div className="container mx-auto px-4 flex items-center justify-between h-16">
+      <div className="px-4 flex items-center justify-between h-16">
         <div className="logo">
           <Link href="/">
             <img className="w-[150x] h-[150px]" src="/logo-primary.png" />
@@ -125,14 +123,16 @@ export const Navbar = () => {
                             <ul>
                               {category.SubCategories.sort((a, b) => a.id - b.id).map((s) => (
                                 <li key={s.name}>
-                                  <Link href={`/shop/${category.id}/category/${s.id}`}>
-                                    <p className="font-light mb-1">{s.name}</p>
+                                  <Link className="group w-fit block mb-1" href={`/shop/${category.id}/category/${s.id}`}>
+                                    <p className="font-light">{s.name}</p>
+                                    <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-gray-800"></span>
                                   </Link>
                                 </li>
                               ))}
                               <li>
-                                <Link href={`/shop/${category.id}`}>
+                                <Link className="group w-fit block" href={`/shop/${category.id}`}>
                                   <p className="font-medium mt-2">View All</p>
+                                  <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-gray-800"></span>
                                 </Link>
                               </li>
                             </ul>

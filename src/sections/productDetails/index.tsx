@@ -4,9 +4,15 @@ import React from "react";
 import { ProductImages } from "./productImages";
 import { ProductSpecsForm } from "./productSpecsForm";
 import { useQuery } from "@tanstack/react-query";
+import { CircleDot, SearchXIcon } from "lucide-react";
 import api from "@/lib/api";
 import { ProductDetailsSkeleton } from "@/components/skeletons";
-import { SearchXIcon } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 interface ProductPage {
   id: string;
@@ -28,12 +34,11 @@ export interface Product {
   colors: colors[];
 }
 
-
 export const ProductPage: React.FC<ProductPage> = ({ id }) => {
   const {
     data: product,
     isLoading,
-    isError
+    isError,
   } = useQuery({
     queryKey: [`product-details-${id}`],
     queryFn: async () => {
@@ -46,38 +51,70 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
   });
 
   if (isLoading) {
-    return <ProductDetailsSkeleton />
+    return <ProductDetailsSkeleton />;
   }
 
   if (isError) {
-    return <div className="h-[600px] flex items-center justify-center">
-      <div className="flex flex-col items-center gap-5">
-        <SearchXIcon width={100} height={100} />
-        <h1>Something went wrong! Couldn&apos;t load product details</h1>
+    return (
+      <div className="h-[600px] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-5">
+          <SearchXIcon width={100} height={100} />
+          <h1>Something went wrong! Couldn&apos;t load product details</h1>
+        </div>
       </div>
-    </div>
+    );
   }
 
   return (
-    <div className="container mx-auto px-5 lg:px-20 py-8">
+    <div className="py-10 px-5 md:px-12 xl:px-20">
       {product && (
         <>
           <h1 className="text-3xl">{product.title}</h1>
           <div className="mt-8 flex flex-col md:flex-row gap-8 lg:gap-[5rem]">
             <ProductImages images={product.images} />
             <div className="pl-0 lg:pl-18 w-full lg:w-[40%]">
-              <ol>
+              <ul>
                 {product.description.map((desc, index) => (
-                  <li key={index}>
-                    <p className="text-lg">
-                      {desc}
-                    </p>
+                  <li key={index} className="flex items-center gap-2 mb-1">
+                    <CircleDot size={12} strokeWidth={3} />
+                    <p className="text-lg">{desc}</p>
                   </li>
                 ))}
-              </ol>
+              </ul>
               <ProductSpecsForm product={product} />
             </div>
           </div>
+          <Accordion type="single" collapsible className="mt-5 w-full">
+            <AccordionItem value="item-1">
+              <AccordionTrigger>Description</AccordionTrigger>
+              <AccordionContent className="p-2 border border-b-0 rounded-tr-md rounded-tl-md">
+                <p className="mb-2">{product.title}</p>
+                <ul>
+                {product.description.map((desc, index) => (
+                  <li key={index} className="flex items-center gap-2 mb-1">
+                    <CircleDot size={12} strokeWidth={3} />
+                    <p>{desc}</p>
+                  </li>
+                ))}
+              </ul>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+              <AccordionTrigger>Sizes/Colors</AccordionTrigger>
+              <AccordionContent className="flex flex-col gap-2">
+                <div className="flex gap-2">
+                  <p className="font-medium">Colors:</p>
+                  {product.colors.map(color => color.name).join(", ")}
+                </div>
+                <div></div>
+                <div className="flex gap-2">
+                  <p className="font-medium">Sizes:</p>
+                  {product.sizes.split("/").map(size => size).join(", ")}
+                </div>
+                <div></div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </>
       )}
     </div>

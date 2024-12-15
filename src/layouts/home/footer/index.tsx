@@ -1,5 +1,12 @@
+"use client";
+
 import { InputField } from "@/components/input/input";
 import { ArrowRight, MailIcon } from "lucide-react";
+import Link from "next/link";
+import { Facebook, Instagram } from "./socialSvgs";
+import { Category } from "../navbar";
+import { useQuery } from "@tanstack/react-query";
+import api from "@/lib/api";
 
 const UnderLine = () => {
   return (
@@ -8,16 +15,54 @@ const UnderLine = () => {
     </div>
   );
 };
+
+const socials = [
+  {
+    name: 'facebook',
+    link: 'https://www.facebook.com',
+    icon: <Facebook />,
+  },
+  {
+    name: 'instagram',
+    link: 'https://www.instagram.com',
+    icon: <Instagram />
+  }
+]
 export const Footer = () => {
+  const { data: productCategories, isLoading, isError } = useQuery({
+    queryKey: ['all-categories'],
+    queryFn: async () => {
+      const data = await api('api/v2/category/getCategory', {
+        method: 'GET'
+      });
+
+      return data.categories as Category[];
+    }
+  })
+
+  const combinedSubCategories = productCategories?.flatMap((category) =>
+    category.SubCategories.map((subCategory) => ({
+      ...subCategory,
+      categoryId: category.id,
+    }))
+  );
+
   return (
     <footer className="bg-black p-8 md:p-16 pb-5 footer">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-0 text-white">
-        <div className="md:w-1/2 flex justify-center">
+        <div className="flex flex-col items-center justify-center mb-5 mt-[-30px] md:justify-start md:items-start md:text-center">
           <img
             src="/logo.png" // Replace with the actual logo image path
             alt="Logo"
-            className="object-contain"
+            className="w-1/2 h-[200px] object-contain"
           />
+          <div className="flex w-1/2 items-center justify-center gap-2 relative mt-[-30px]">
+          {socials.map((s) => (
+            <Link key={s.name} href={s.link} target="_blank">
+              {s.icon}
+            </Link>
+          ))}
+          </div>
         </div>
         <div className="grid grid-cols-2">
           <div>
@@ -26,11 +71,18 @@ export const Footer = () => {
               <UnderLine />
             </span>
             <ul className="mt-5 flex flex-col gap-2">
-              <li>Sportswear</li>
-              <li>Activewear</li>
-              <li>Teamwear</li>
-              <li>Caps</li>
-              <li>Bags</li>
+              {
+                isLoading || isError
+                ? Array(3).fill(0).map((_, index) => (
+                  <div key={index} className="mb-2 w-20 h-3 bg-gray-300 rounded-md animate-pulse" />
+                ))
+                : combinedSubCategories?.map((c) => (
+                  <Link key={c.name} href={`/shop/${c.categoryId}/category/${c.id}`} className="group block w-fit">
+                  <li>{c.name}</li>
+                  <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-white"></span>
+                  </Link>
+                ))
+              }
             </ul>
           </div>
           <div>
@@ -39,9 +91,12 @@ export const Footer = () => {
               <UnderLine />
             </span>
             <ul className="mt-5 flex flex-col gap-2">
-              <li>About Us</li>
-              <li>Contact</li>
-              <li>FAQs</li>
+              <Link href='/about-us' className="group block w-fit">
+                <li>About Us</li>
+                <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-white"></span>
+              </Link>
+              {/* <li>Contact</li>
+              <li>FAQs</li> */}
             </ul>
           </div>
         </div>

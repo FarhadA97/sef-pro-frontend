@@ -2,10 +2,10 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ReactPaginate from "react-paginate";
-import { MoveLeftIcon, MoveRightIcon } from "lucide-react";
+import { ChevronRight, MoveLeftIcon, MoveRightIcon } from "lucide-react";
 
 import api from "@/lib/api";
 import { SkeletonCatalog } from "@/components/skeletons";
@@ -36,7 +36,7 @@ export const ProductCard = ({ product }: { product: Product }) => (
       <img
         src={product.images[0]}
         alt={product.title}
-        className="w-full h-[400px] object-cover"
+        className="w-full h-[400px] object-fit"
       />
       <div className="p-4">
         <h3 className="text-lg font-semibold">{product.title}</h3>
@@ -46,7 +46,10 @@ export const ProductCard = ({ product }: { product: Product }) => (
 
     {/* Hover Effect */}
     <div className="absolute bottom-0 left-0 w-full h-12 bg-[#111710] bg-opacity-80 text-white text-center flex items-center justify-center translate-y-12 group-hover:translate-y-0 transition-transform duration-300">
-      <span className="text-lg font-semibold">Customize</span>
+      <span className="flex items-center">
+        <p className="text-xl font-semibold ">Customize</p>
+        <ChevronRight strokeWidth={3} />
+      </span>
     </div>
   </Link>
 );
@@ -170,7 +173,7 @@ export const Shop = ({ categoryId }: { categoryId: string }) => {
   const products = productsQueryData?.products;
 
   return (
-    <div className="mt-5 px-8">
+    <div className="mt-5 py-2 px-5 md:px-12 xl:px-20">
       <div className="py-5">
         <h1 className="text-3xl font-medium">Categories</h1>
         <CategorySection
