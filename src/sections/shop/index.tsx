@@ -147,7 +147,7 @@ export const Shop = ({ categoryId }: { categoryId: string }) => {
     queryKey: [`products-category-${categoryId}-${page}`],
     queryFn: async () => {
       const res = await api(
-        `api/v2/products/getAllProducts?categoryId=${categoryId}&page=${page}&limit=2`,
+        `api/v2/products/getAllProducts?categoryId=${categoryId}&page=${page}`,
         { method: "GET" }
       );
       return res.data as { page: number; pages: number; products: Product[] };
