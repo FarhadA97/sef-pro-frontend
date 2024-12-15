@@ -1,6 +1,6 @@
 export const ProductDetailsSkeleton = () => {
     return (
-        <div className="container mx-auto px-5 lg:px-20 py-8 w-full">
+        <div className="py-10 px-5 md:px-12 xl:px-20 w-full">
             <div className="mb-5">
                 <div className="w-2/3 h-6 bg-gray-300 rounded-md animate-pulse"></div>
             </div>
