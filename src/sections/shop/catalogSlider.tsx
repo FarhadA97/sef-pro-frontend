@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Navigation } from 'swiper/modules';
 import Link from 'next/link';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 type category = {
   id: number,
@@ -52,33 +53,64 @@ const CatalogSlider = ({
   categories,
   categoryId,
   subCategoryId
-}: CatalogSliderProps ) => {
-
-
+}: CatalogSliderProps) => {
   return (
-    <Swiper
-      navigation={true}
-      modules={[Navigation]}
-      slidesPerView={1}
-      breakpoints={{
-        768: { slidesPerView: 2.5, spaceBetween: 10 },
-        1024: { slidesPerView: 'auto', spaceBetween: 10 },
-      }}
-    >
-      {categories.map((category, index) => {
-        const slideColor = ProductData[Math.floor(Math.random() * ProductData.length)].colorClass
-        const borderColor = ProductData.find(p => p.colorClass === slideColor)?.borderClass
+    <div className="relative">
+      {/* Custom Navigation Buttons */}
+      <button
+        className="absolute -left-5 z-10 bg-gray-300 p-2 rounded-full -translate-y-1/2 top-1/2"
+        id="prev-button"
+      >
+        <ChevronLeftIcon />
+      </button>
+      <button
+        className="absolute -right-5 z-10 bg-gray-300 p-2 rounded-full -translate-y-1/2 top-1/2"
+        id="next-button"
+      >
+        <ChevronRightIcon /> {/* Right Arrow */}
+      </button>
 
-        return (
-          <SwiperSlide className={`!w-fit my-5 ${category.id === subCategoryId && `border-2 rounded-lg ${borderColor}`}`} key={index}>
-            <Link href={`/shop/${categoryId}/category/${category.id}`} className='!cursor-pointer'>
+      <Swiper
+        navigation={{
+          prevEl: '#prev-button', // Attach custom navigation buttons
+          nextEl: '#next-button',
+        }}
+        modules={[Navigation]}
+        slidesPerView={1}
+        breakpoints={{
+          768: { slidesPerView: 2.5, spaceBetween: 10 },
+          1024: { slidesPerView: 'auto', spaceBetween: 10 },
+        }}
+      >
+        {categories.map((category, index) => {
+          const slideColor =
+            ProductData[Math.floor(Math.random() * ProductData.length)].colorClass;
+          const borderColor = ProductData.find(
+            (p) => p.colorClass === slideColor
+          )?.borderClass;
 
-              <CatalogItem image={category.picture} title={category.name} color={slideColor} />
-            </Link>
-          </SwiperSlide>
-        )
-      })}
-    </Swiper>
+          return (
+            <SwiperSlide
+              className={`!w-fit my-5 ${
+                category.id === subCategoryId && `border-2 rounded-lg ${borderColor}`
+              }`}
+              key={index}
+            >
+              <Link
+                href={`/shop/${categoryId}/category/${category.id}`}
+                className="!cursor-pointer"
+              >
+                <CatalogItem
+                  image={category.picture}
+                  title={category.name}
+                  color={slideColor}
+                />
+              </Link>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+    </div>
   );
 };
 

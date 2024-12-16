@@ -1,6 +1,6 @@
 export default function AboutUsPage() {
   return (
-    <div className="container mx-auto flex flex-col gap-5 py-10">
+    <div className="flex flex-col gap-5 p-5 md:p-12 lg:px-[8rem]">
       <div className="flex flex-col items-center justify-center gap-5">
         <img className="w-[350px] h-[250px] mt-[-40px]" src="/logo.png" />
         <h1 className="text-3xl font-medium underline mt-[-40px] mb-10">

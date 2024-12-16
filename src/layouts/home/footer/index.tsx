@@ -76,7 +76,7 @@ export const Footer = () => {
                 ? Array(3).fill(0).map((_, index) => (
                   <div key={index} className="mb-2 w-20 h-3 bg-gray-300 rounded-md animate-pulse" />
                 ))
-                : combinedSubCategories?.map((c) => (
+                : combinedSubCategories?.slice(0,4).map((c) => (
                   <Link key={c.name} href={`/shop/${c.categoryId}/category/${c.id}`} className="group block w-fit">
                   <li>{c.name}</li>
                   <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-white"></span>
