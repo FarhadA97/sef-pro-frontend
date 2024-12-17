@@ -19,17 +19,17 @@ interface SubCategory {
   status: string;
 }
 
-interface Product {
+export interface Product {
   id: string;
   title: string;
   images: string[];
   price: number;
 }
 
-export const ProductCard = ({ product }: { product: Product }) => (
+export const ProductCard = ({ product, containerStyle }: { product: Product, containerStyle: string }) => (
   <Link
     href={`/product/${product.id}`}
-    className="relative group border overflow-hidden cursor-pointer"
+    className={`group border overflow-hidden cursor-pointer ${containerStyle}`}
   >
     {/* Image and Content */}
     <div className="h-full transform group-hover:-translate-y-12 transition-transform duration-300">
@@ -103,7 +103,7 @@ const ProductSection = ({
       <div>
         <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((item) => (
-            <ProductCard key={item.id} product={item} />
+            <ProductCard containerStyle="relative" key={item.id} product={item} />
           ))}
         </div>
         <ReactPaginate

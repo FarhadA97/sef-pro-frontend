@@ -4,6 +4,8 @@ import { SkeletonCatalog } from "@/components/skeletons";
 import api from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { ProductSlider } from "./productSlider";
+import { Product } from "../shop";
 
 interface Category {
   id: number,
@@ -55,14 +57,37 @@ export const Catalog = () => {
       return data.categories as Category[];
     }
   })
+
+  const {
+    data: products,
+    isLoading: isProductsLoading,
+    isError: isProductsError
+  } = useQuery({
+    queryKey: ['landing-products'],
+    queryFn: async () => {
+      const res = await api('api/v2/products/landingPageProducts', {
+        method: 'GET'
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const allProducts = res.data.flatMap((category: any) => category.products) as Product[];
+      console.log("products", allProducts)
+
+      return allProducts;
+    }
+  })
+
     
-    if (isLoading || isError) return <SkeletonCatalog />
+    if ((isLoading || isError || isProductsLoading || isProductsError)) return <SkeletonCatalog />
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
-        {categories?.map((data,index) => (
-          <CatalogItem key={index} id={data.id} title={data.name} image={data.picture} color={colorData[index].colorClass} />
-        ))}
-      </div>
+      <>
+        {products && products.length > 0 && <ProductSlider products={products} />}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
+          {categories?.map((data,index) => (
+            <CatalogItem key={index} id={data.id} title={data.name} image={data.picture} color={colorData[index].colorClass} />
+          ))}
+        </div>
+      </>
       );
 }
