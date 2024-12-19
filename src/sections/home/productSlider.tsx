@@ -37,7 +37,7 @@ export const ProductSlider = ({ products }: { products: Product[] }) => {
       >
         {products.map((product) => (
           <SwiperSlide className="w-auto md:!w-fit border rounded" key={product.id}>
-            <ProductCard textStyle="min-h-[100px]" product={product} />
+            <ProductCard textStyle="min-h-[100px]" imageContainerStyles="w-[450px]" product={product} />
           </SwiperSlide>
         ))}
       </Swiper>

@@ -32,7 +32,7 @@ const ProductSection = ({
     return (
         products && (
             <div>
-                <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {products.map((item) => (
                         <ProductCard containerStyle="relative border" key={item.id} product={item} />
                     ))}
@@ -133,7 +133,7 @@ export const Search = () => {
     <div className="p-10">
       <div className="flex items-center gap-5 mb-8 relative z-1000">
         <SearchIcon />
-        <p className="text-xl">"{searchKey}"</p>
+        <p className="text-xl">&quot;{searchKey}&quot;</p>
       </div>
         <ProductSection
           isLoadingProducts={isLoading}

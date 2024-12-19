@@ -27,14 +27,14 @@ export interface Product {
   price: number;
 }
 
-export const ProductCard = ({ product, containerStyle, textStyle, categoryId = "" }: { product: Product, containerStyle?: string, textStyle?: string, categoryId?: string }) => (
+export const ProductCard = ({ product, containerStyle, textStyle, imageContainerStyles = 'w-full', categoryId = "" }: { product: Product, containerStyle?: string, textStyle?: string, imageContainerStyles?: string, categoryId?: string }) => (
   <Link
     href={`/product/${product.id}`}
     onClick={() => localStorage.setItem('state', JSON.stringify({categoryId, productId: product.id}))}
     className={`group overflow-hidden cursor-pointer ${containerStyle}`}
   >
     {/* Image and Content */}
-    <div className="w-auto md:w-[400px] h-full flex flex-col justify-center transform group-hover:-translate-y-12 transition-transform duration-300">
+    <div className={`h-full transform group-hover:-translate-y-12 transition-transform duration-300 ${imageContainerStyles}`}>
       <img
         src={product.images[0]}
         alt={product.title}
@@ -105,7 +105,7 @@ const ProductSection = ({
   return (
     products && (
       <div>
-        <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {products.map((item) => (
             <ProductCard categoryId={categoryId} containerStyle="border relative" key={item.id} product={item} />
           ))}

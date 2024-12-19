@@ -1,6 +1,6 @@
 export const ProductCardSkeleton = () => {
   return (
-      <div className="flex gap-5">
+      <div className="flex flex-col md:flex-row gap-5">
           {/* Map over 3 Skeleton Items with height and width props */}
           {Array(3).fill(0).map((_, index) => (
               <ProductCard key={index} />
