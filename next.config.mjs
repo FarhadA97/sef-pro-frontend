@@ -2,7 +2,7 @@
 
 const APP_URL =
   process.env.NODE_ENV == 'production'
-    ? 'https://ramis-store'
+    ? 'https://ramis-store-be.vercel.app'
     : 'http://localhost:8000'
 
 const nextConfig = {
