@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Footer, Navbar } from "@/layouts/home";
 import { ReactQueryClientProvider } from "@/providers/reactQueryClientProvider";
 
-const roboto = Roboto({
+const poppins = Poppins({
   weight: ['300', '400', '500', '700'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} antialiased`}
+        className={`${poppins.className} antialiased`}
       >
         <ReactQueryClientProvider>
           <Navbar />

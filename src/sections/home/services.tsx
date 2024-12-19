@@ -27,10 +27,10 @@ export const Services= () => {
       })
 
   return (
-    <section ref={ref} className="bg-gray-100 p-5 lg:p-16 mb-5 rounded-lg">
+    <section ref={ref} className="mx-2 bg-gray-100 p-5 md:p-12 mb-5 rounded-lg">
       <div className="grid grid-cols-1 lg:grid-cols-[calc(50%-5em)_calc(50%-2em)] gap-8 lg:gap-0">
         <div className="flex flex-col gap-5 mb-8 md:mb-0 order-last lg:order-first">
-          <h2 className="mb-0 lg:mb-4 text-2xl lg:text-4xl font-bold text-gray-800">
+          <h2 className="mb-0 lg:mb-4 text-2xl md:text-3xl font-bold text-gray-800">
             Your Design, Our Craftsmanship
           </h2>
           <p className="text-lg lg:text-xl text-gray-600 leading-relaxed">
@@ -42,15 +42,15 @@ export const Services= () => {
           <ul className="mt-2 flex flex-col gap-5">
             <animated.li style={slideInLeft} className="flex gap-2 items-center">
               <Check />
-              <p className="text-xl font-semibold">Tailored cuts and stitching to match your designs</p>
+              <p className="text-xl font-medium">Tailored cuts and stitching to match your designs</p>
             </animated.li>
             <animated.li style={slideInLeft} className="flex gap-2 items-center">
               <Check />
-              <p className="text-xl font-semibold">Custom embroidery to showcase your logos with precision</p>
+              <p className="text-xl font-medium">Custom embroidery to showcase your logos with precision</p>
             </animated.li>
             <animated.li style={slideInLeft} className="flex gap-2 items-center">
               <Check />
-              <p className="text-xl font-semibold">High-quality prints to bring your branding to life</p>
+              <p className="text-xl font-medium">High-quality prints to bring your branding to life</p>
 
             </animated.li>
           </ul>

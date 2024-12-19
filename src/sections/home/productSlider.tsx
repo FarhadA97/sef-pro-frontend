@@ -8,16 +8,17 @@ import { Product, ProductCard } from "../shop";
 
 export const ProductSlider = ({ products }: { products: Product[] }) => {
   return (
-    <div className="relative">
+    <div className="relative px-5">
+      <h3 className="block w-fit text-[30px] self-center font-medium border-b-2 border-[#114EC7] mx-auto mb-8">Now Available</h3>
       {/* Custom Navigation Buttons */}
       <button
-        className="absolute -left-5 z-10 bg-gray-300 p-2 rounded-full -translate-y-1/2 top-1/2"
+        className="absolute left-2 z-10 bg-gray-300 p-2 rounded-full -translate-y-1/2 top-1/2"
         id="prev-button"
       >
         <ChevronLeftIcon />
       </button>
       <button
-        className="absolute -right-5 z-10 bg-gray-300 p-2 rounded-full -translate-y-1/2 top-1/2"
+        className="absolute right-2 z-10 bg-gray-300 p-2 rounded-full -translate-y-1/2 top-1/2"
         id="next-button"
       >
         <ChevronRightIcon /> {/* Right Arrow */}
@@ -28,17 +29,15 @@ export const ProductSlider = ({ products }: { products: Product[] }) => {
           prevEl: "#prev-button", // Attach custom navigation buttons
           nextEl: "#next-button",
         }}
-        className="bg-red"
         modules={[Navigation]}
-        slidesPerView={1}
         breakpoints={{
-          768: { slidesPerView: 2.5, spaceBetween: 10 },
-          1024: { slidesPerView: 'auto', spaceBetween: 10 },
+          992: { slidesPerView: 2, spaceBetween: 5 },
+          1024: { slidesPerView: 'auto', spaceBetween: 20 },
         }}
       >
         {products.map((product) => (
-          <SwiperSlide className={`!w-fit`} key={product.id}>
-            <ProductCard containerStyle="" product={product} />
+          <SwiperSlide className="w-auto md:!w-fit border rounded" key={product.id}>
+            <ProductCard textStyle="min-h-[100px]" product={product} />
           </SwiperSlide>
         ))}
       </Swiper>

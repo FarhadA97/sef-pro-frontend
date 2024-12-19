@@ -54,6 +54,7 @@ const CategorySection = ({
 };
 
 const ProductSection = ({
+  categoryId,
   isLoadingProducts,
   isErrorProducts,
   products,
@@ -61,6 +62,7 @@ const ProductSection = ({
   handlePageChange,
   page,
 }: {
+  categoryId: string;
   isLoadingProducts: boolean;
   isErrorProducts: boolean;
   products: Product[] | undefined;
@@ -76,7 +78,7 @@ const ProductSection = ({
       <div>
         <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((item) => (
-            <ProductCard key={item.id} product={item} />
+            <ProductCard categoryId={categoryId} containerStyle="border relative" key={item.id} product={item} />
           ))}
         </div>
         <ReactPaginate
@@ -168,6 +170,7 @@ export const CategoryShop = ({ categoryId, subCategoryId }: { categoryId: string
       <div className="mb-5">
         <h1 className="mt-5 text-3xl font-medium">{subCategories?.find(sub => sub.id === Number(subCategoryId))?.name || "Products"}</h1>
         <ProductSection
+          categoryId={categoryId}
           isLoadingProducts={isLoadingProducts}
           isErrorProducts={isErrorProducts}
           products={products}

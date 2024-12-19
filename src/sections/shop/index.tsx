@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import api from "@/lib/api";
 import { SkeletonCatalog } from "@/components/skeletons";
 import { Loader } from "@/components/loader/loader";
 import CatalogSlider from "./catalogSlider";
+import { Category } from "@/layouts/home/navbar";
 
 interface SubCategory {
   id: number;
@@ -26,21 +27,22 @@ export interface Product {
   price: number;
 }
 
-export const ProductCard = ({ product, containerStyle }: { product: Product, containerStyle: string }) => (
+export const ProductCard = ({ product, containerStyle, textStyle, categoryId = "" }: { product: Product, containerStyle?: string, textStyle?: string, categoryId?: string }) => (
   <Link
     href={`/product/${product.id}`}
-    className={`group border overflow-hidden cursor-pointer ${containerStyle}`}
+    onClick={() => localStorage.setItem('state', JSON.stringify({categoryId, productId: product.id}))}
+    className={`group overflow-hidden cursor-pointer ${containerStyle}`}
   >
     {/* Image and Content */}
-    <div className="h-full transform group-hover:-translate-y-12 transition-transform duration-300">
+    <div className="w-auto md:w-[400px] h-full flex flex-col justify-center transform group-hover:-translate-y-12 transition-transform duration-300">
       <img
         src={product.images[0]}
         alt={product.title}
         className="w-full h-[400px] object-fit"
       />
       <div className="p-4">
-        <h3 className="text-lg font-semibold">{product.title}</h3>
-        <p className="text-gray-500">${product.price.toFixed(2)}</p>
+        <h3 className={`text-lg font-medium group-hover:underline ${textStyle}`}>{product.title}</h3>
+        {/* <p className="text-gray-500">${product.price.toFixed(2)}</p> */}
       </div>
     </div>
 
@@ -81,6 +83,7 @@ const CategorySection = ({
 };
 
 const ProductSection = ({
+  categoryId,
   isLoadingProducts,
   isErrorProducts,
   products,
@@ -88,6 +91,7 @@ const ProductSection = ({
   handlePageChange,
   page,
 }: {
+  categoryId: string;
   isLoadingProducts: boolean;
   isErrorProducts: boolean;
   products: Product[] | undefined;
@@ -103,7 +107,7 @@ const ProductSection = ({
       <div>
         <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((item) => (
-            <ProductCard containerStyle="relative" key={item.id} product={item} />
+            <ProductCard categoryId={categoryId} containerStyle="border relative" key={item.id} product={item} />
           ))}
         </div>
         <ReactPaginate
@@ -127,10 +131,14 @@ const ProductSection = ({
 };
 
 export const Shop = ({ categoryId }: { categoryId: string }) => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
   const [page, setPage] = useState(currentPage);
+
+  const allCategories = queryClient.getQueryData(['all-categories']) as Category[];
+  const currentCategory = allCategories?.find(category => category.id === Number(categoryId))
 
   const { data: subCategories, isLoading, isError } = useQuery({
     queryKey: [`subCategories-category-${categoryId}`],
@@ -175,7 +183,8 @@ export const Shop = ({ categoryId }: { categoryId: string }) => {
   return (
     <div className="mt-5 py-2 px-5 md:px-12 xl:px-20">
       <div className="py-5">
-        <h1 className="text-3xl font-medium">Categories</h1>
+        <h1 className="text-center text-3xl mb-5">{currentCategory?.name}</h1>
+        <h1 className="text-2xl font-medium">Categories</h1>
         <CategorySection
           isLoading={isLoading}
           isError={isError}
@@ -184,8 +193,9 @@ export const Shop = ({ categoryId }: { categoryId: string }) => {
         />
       </div>
       <div id='products' className="mb-5">
-        <h1 className="mt-5 text-3xl font-medium">All Products</h1>
+        <h1 className="mt-5 text-2xl font-medium">All Products</h1>
         <ProductSection
+          categoryId={categoryId}
           isLoadingProducts={isLoadingProducts}
           isErrorProducts={isErrorProducts}
           products={products}

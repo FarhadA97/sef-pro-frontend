@@ -74,7 +74,7 @@ const ColorDisplay = ({colors}:{colors: colors[]} ) => {
 export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
   product,
 }) => {
-  const [selectedSize, setSelectedSize] = useState<null | string>(null);
+  const [selectedSize, setSelectedSize] = useState<string>('');
   // const [quantity, setQuantity] = useState(1);
 
   // const handleQuantityChange = (value: number) => {
@@ -89,7 +89,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
     <form className="flex flex-col gap-8 my-8 p-5 border rounded-md">
       {/* Size Selector */}
       <div>
-        <p className="text-2xl mb-5">${product.price.toFixed(2)}</p>
+        {/* <p className="text-2xl mb-5">${product.price.toFixed(2)}</p> */}
         <label
           htmlFor="size"
           className="block text-sm font-medium text-gray-700 mb-1"
@@ -98,7 +98,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
         </label>
         <select
           id="size"
-          value={selectedSize!}
+          value={selectedSize}
           onChange={(e) => setSelectedSize(e.target.value)}
           className="block w-[250px] p-2 border border-gray-300 rounded-sm shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         >

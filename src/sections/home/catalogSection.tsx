@@ -77,17 +77,20 @@ export const Catalog = () => {
     }
   })
 
-    
-    if ((isLoading || isError || isProductsLoading || isProductsError)) return <SkeletonCatalog />
+
+    if ((isLoading || isError || isProductsLoading || isProductsError)) return <SkeletonCatalog height="h-[400px]" width="w-[350px]" showHeading={true} containerStyle="mt-10"/>
 
     return (
       <>
-        {products && products.length > 0 && <ProductSlider products={products} />}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
-          {categories?.map((data,index) => (
-            <CatalogItem key={index} id={data.id} title={data.name} image={data.picture} color={colorData[index].colorClass} />
-          ))}
+        <div className="flex flex-col gap-8 bg-gray-100 px-2 py-5 md:px-5 md:py-8">
+          <h3 className="block w-fit text-[30px] self-center border-b-2 border-[#114EC7] text-center">Our Categories</h3>
+          <div className="px-8 md:px-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
+            {categories?.map((data,index) => (
+              <CatalogItem key={index} id={data.id} title={data.name} image={data.picture} color={colorData[index].colorClass} />
+            ))}
+          </div>
         </div>
+        {products && products.length > 0 && <div id='products'><ProductSlider products={products} /></div>}
       </>
       );
 }

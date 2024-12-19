@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ProductImages } from "./productImages";
 import { ProductSpecsForm } from "./productSpecsForm";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CircleDot, SearchXIcon } from "lucide-react";
 import api from "@/lib/api";
 import { ProductDetailsSkeleton } from "@/components/skeletons";
@@ -13,6 +13,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Category } from "@/layouts/home/navbar";
+import Link from "next/link";
 
 interface ProductPage {
   id: string;
@@ -35,6 +37,21 @@ export interface Product {
 }
 
 export const ProductPage: React.FC<ProductPage> = ({ id }) => {
+  const queryClient = useQueryClient();
+  const [currentCategory, setCurrentCategory] = useState<Category | null>(null)
+
+  const localState = JSON.parse(localStorage.getItem('state') as string) as {categoryId: string; productId: string} | null;
+
+  const allCategories = queryClient.getQueryData(['all-categories']) as Category[];
+  const isSameProduct = id === localState?.productId;
+
+  useEffect(() => {
+    if(localState){
+      const currentCategory = allCategories?.find(category => category.id === Number(localState?.categoryId))
+      setCurrentCategory(currentCategory ? currentCategory : null)
+    }
+  },[localState,allCategories])
+
   const {
     data: product,
     isLoading,
@@ -69,6 +86,24 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
     <div className="py-10 px-5 md:px-12 xl:px-20">
       {product && (
         <>
+          {isSameProduct && (
+            <div className="flex gap-2 mb-5">
+              <Link href='/' className="group">
+                <p>Home</p>
+                <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              </Link>/
+              {currentCategory && (
+                <>
+                <Link href={`/shop/${currentCategory.id}`} className="group">
+                  <p>{currentCategory?.name}</p>
+                  <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+                </Link>
+                /
+                </>
+              )}
+              <p className="text-gray-400">{product.title}</p>
+            </div>
+          )}
           <h1 className="text-3xl">{product.title}</h1>
           <div className="mt-8 flex flex-col md:flex-row gap-8 lg:gap-[5rem]">
             <ProductImages images={product.images} />
@@ -90,13 +125,13 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
               <AccordionContent className="p-2 border border-b-0 rounded-tr-md rounded-tl-md">
                 <p className="mb-2">{product.title}</p>
                 <ul>
-                {product.description.map((desc, index) => (
-                  <li key={index} className="flex items-center gap-2 mb-1">
-                    <CircleDot size={12} strokeWidth={3} />
-                    <p>{desc}</p>
-                  </li>
-                ))}
-              </ul>
+                  {product.description.map((desc, index) => (
+                    <li key={index} className="flex items-center gap-2 mb-1">
+                      <CircleDot size={12} strokeWidth={3} />
+                      <p>{desc}</p>
+                    </li>
+                  ))}
+                </ul>
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
@@ -104,12 +139,15 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
               <AccordionContent className="flex flex-col gap-2">
                 <div className="flex gap-2">
                   <p className="font-medium">Colors:</p>
-                  {product.colors.map(color => color.name).join(", ")}
+                  {product.colors.map((color) => color.name).join(", ")}
                 </div>
                 <div></div>
                 <div className="flex gap-2">
                   <p className="font-medium">Sizes:</p>
-                  {product.sizes.split("/").map(size => size).join(", ")}
+                  {product.sizes
+                    .split("/")
+                    .map((size) => size)
+                    .join(", ")}
                 </div>
                 <div></div>
               </AccordionContent>

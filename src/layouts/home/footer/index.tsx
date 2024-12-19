@@ -19,12 +19,12 @@ const UnderLine = () => {
 const socials = [
   {
     name: 'facebook',
-    link: 'https://www.facebook.com',
+    link: 'https://www.facebook.com/sefproptyltd',
     icon: <Facebook />,
   },
   {
     name: 'instagram',
-    link: 'https://www.instagram.com',
+    link: 'https://www.instagram.com/sefproptyltd',
     icon: <Instagram />
   }
 ]
@@ -48,11 +48,11 @@ export const Footer = () => {
   );
 
   return (
-    <footer className="bg-black p-8 md:p-16 pb-5 footer">
+    <footer className="bg-black p-8 md:p-10 pb-5 footer">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-0 text-white">
         <div className="flex flex-col items-center justify-center mb-5 mt-[-30px] md:justify-start md:items-start md:text-center">
           <img
-            src="/logo.png" // Replace with the actual logo image path
+            src="/logo.png"
             alt="Logo"
             className="w-1/2 h-[200px] object-contain"
           />
@@ -95,8 +95,6 @@ export const Footer = () => {
                 <li>About Us</li>
                 <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-white"></span>
               </Link>
-              {/* <li>Contact</li>
-              <li>FAQs</li> */}
             </ul>
           </div>
         </div>
@@ -113,7 +111,11 @@ export const Footer = () => {
           </div>
       </div>
       <hr className="my-5 "/>
+      <div className="flex flex-col gap-4 md:flex-row items-center justify-between">
+      <div className="w-20"></div>
       <p className="mb-0 text-center text-white text-sm">SEF PRO PTY LTD &copy;. All rights reserved </p>
+      <img className="" width={350} height={350} src="/footerWatermarks.jpeg"/>
+      </div>
     </footer>
   );
 };

@@ -14,6 +14,10 @@
   }
 } */
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -31,7 +35,7 @@ body {
 .homeSlider {
   background-color: #171717;
   position: relative;
-  height: calc(100vh - 194px);
+  height: 100vh;
   overflow: hidden;
 }
 

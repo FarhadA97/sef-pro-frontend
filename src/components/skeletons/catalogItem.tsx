@@ -1,15 +1,20 @@
 interface SkeletonCatalogItemProps {
   height?: string;
   width?: string;
+  showHeading?: boolean;
+  containerStyle?: string;
 }
 
-export const SkeletonCatalog = ({ height = 'h-96', width = 'w-64' }: SkeletonCatalogItemProps) => {
+export const SkeletonCatalog = ({ height = 'h-96', width = 'w-64', showHeading = false, containerStyle }: SkeletonCatalogItemProps) => {
   return (
-    <div className="flex overflow-x-auto space-x-4">
+    <div className={`flex flex-col gap-10 p-5 overflow-x-auto lg:overflow-x-hidden space-x-4 ${containerStyle}`}>
+      {showHeading && <div className="w-[200px] self-center h-6 bg-gray-300 rounded-md animate-pulse"></div>}
       {/* Map over 3 Skeleton Items with height and width props */}
-      {Array(3).fill(0).map((_, index) => (
+      <div className="flex gap-8">
+      {Array(5).fill(0).map((_, index) => (
         <SkeletonCatalogItem key={index} height={height} width={width} />
       ))}
+      </div>
     </div>
   );
 };
