@@ -49,7 +49,7 @@ const Sidebar = ({
         <div className="h-screen">
           <DrawerHeader>
             <DrawerTitle className="flex items-center justify-center">
-              <img className="w-[150x] h-[120px]" src="/logo-primary.png" />
+              <img className="h-[120px]" src="/logo-primary.png" />
             </DrawerTitle>
             <DrawerClose className="absolute right-2">
               <button onClick={onClose}>
@@ -119,7 +119,7 @@ export const Navbar = () => {
         <div className="px-4 flex items-center justify-between h-16">
           <div className="logo">
             <Link href="/">
-              <img className="w-[150x] h-[150px]" src="/logo-primary.png" />
+              <img className="h-[150px]" src="/logo-primary.png" />
             </Link>
           </div>
           <div className="hidden md:flex space-x-6">

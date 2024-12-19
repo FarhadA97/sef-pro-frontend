@@ -38,7 +38,7 @@ const CatalogItem = ({ image, title, color }: { image: string; title: string; co
       />
       {/* Overlay Text */}
       <div
-        className={`absolute inset-0 flex justify-center bg-opacity-30 text-white text-lg font-semibold transition-opacity duration-1000 group-hover:bg-opacity-60 ${color}`}
+        className={`absolute inset-0 flex justify-center bg-opacity-30 text-white text-lg font-semibold transition-opacity duration-1000 group-hover:bg-opacity-80 ${color}`}
       >
         <p className="absolute z-20 bottom-6 text-white text-[25px] font-semibold transition-all duration-500 group-hover:bottom-1 group-hover:text-[18px]">
           {title}
@@ -83,16 +83,16 @@ const CatalogSlider = ({
         }}
       >
         {categories.map((category, index) => {
-          const slideColor =
-            ProductData[Math.floor(Math.random() * ProductData.length)].colorClass;
-          const borderColor = ProductData.find(
-            (p) => p.colorClass === slideColor
-          )?.borderClass;
+          // const slideColor =
+          //   ProductData[Math.floor(Math.random() * ProductData.length)].colorClass;
+          // const borderColor = ProductData.find(
+          //   (p) => p.colorClass === slideColor
+          // )?.borderClass;
 
           return (
             <SwiperSlide
               className={`!w-fit my-5 ${
-                category.id === subCategoryId && `border-2 rounded-lg ${borderColor}`
+                category.id === subCategoryId && `border-4 rounded-lg #1F2937`
               }`}
               key={index}
             >
@@ -103,7 +103,7 @@ const CatalogSlider = ({
                 <CatalogItem
                   image={category.picture}
                   title={category.name}
-                  color={slideColor}
+                  color={'bg-[#1F2937]'}
                 />
               </Link>
             </SwiperSlide>

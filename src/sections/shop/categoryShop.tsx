@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import CatalogSlider from "./catalogSlider";
 import api from "@/lib/api";
 import { SkeletonCatalog } from "@/components/skeletons";
@@ -10,6 +10,7 @@ import ReactPaginate from "react-paginate";
 import { MoveLeftIcon, MoveRightIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { Category } from "@/layouts/home/navbar";
 
 interface SubCategory {
   id: number,
@@ -102,11 +103,15 @@ const ProductSection = ({
 };
 
 export const CategoryShop = ({ categoryId, subCategoryId }: { categoryId: string, subCategoryId: string }) => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
   const [page, setPage] = useState(currentPage);
 
+  const allCategories = queryClient.getQueryData(['all-categories']) as Category[];
+  const currentCategory = allCategories?.find(category => category.id === Number(categoryId))
+  
   const {
     data: subCategories,
     isLoading,
@@ -158,7 +163,8 @@ export const CategoryShop = ({ categoryId, subCategoryId }: { categoryId: string
   return (
     <div className="mt-5 py-2 px-5 md:px-12 xl:px-20">
       <div className="py-5">
-        <h1 className="text-3xl font-medium">Categories</h1>
+      <h1 className="text-center text-3xl mb-5">{currentCategory?.name}</h1>
+        <h1 className="text-2xl font-medium">Categories</h1>
         <CategorySection
           isLoading={isLoading}
           isError={isError}
@@ -168,7 +174,7 @@ export const CategoryShop = ({ categoryId, subCategoryId }: { categoryId: string
         />
       </div>
       <div className="mb-5">
-        <h1 className="mt-5 text-3xl font-medium">{subCategories?.find(sub => sub.id === Number(subCategoryId))?.name || "Products"}</h1>
+        <h1 className="mt-5 text-2xl font-medium">{subCategories?.find(sub => sub.id === Number(subCategoryId))?.name || "Products"}</h1>
         <ProductSection
           categoryId={categoryId}
           isLoadingProducts={isLoadingProducts}
