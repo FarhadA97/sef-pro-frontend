@@ -87,21 +87,21 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
       {product && (
         <>
           {isSameProduct && (
-            <div className="flex gap-2 mb-5">
+            <div className="flex gap-1 md:gap-2 mb-5">
               <Link href='/' className="group">
-                <p>Home</p>
+                <p className="text-xs md:text-sm">Home</p>
                 <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
               </Link>/
               {currentCategory && (
                 <>
                 <Link href={`/shop/${currentCategory.id}`} className="group">
-                  <p>{currentCategory?.name}</p>
+                  <p className="text-xs md:text-sm">{currentCategory?.name}</p>
                   <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
                 </Link>
                 /
                 </>
               )}
-              <p className="text-gray-400">{product.title}</p>
+              <p className="text-gray-400 text-xs md:text-sm">{product.title}</p>
             </div>
           )}
           <h1 className="text-3xl">{product.title}</h1>

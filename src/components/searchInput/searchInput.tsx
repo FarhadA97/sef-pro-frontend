@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export const SearchBar: React.FC = () => {
+export const SearchBar: React.FC<{onSubmit?: () => void | null; expanded?: boolean}> = ({onSubmit = null, expanded = false}) => {
     const router = useRouter();
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(expanded);
     const [searchQuery, setSearchQuery] = useState('');
     const inputRef = useRef<HTMLDivElement>(null);
 
@@ -25,7 +25,7 @@ export const SearchBar: React.FC = () => {
     return (
         <div
             ref={inputRef}
-            className={`relative flex items-center bg-gray-100 rounded-full overflow-hidden transition-all duration-300 ${isExpanded ? "w-64" : "w-10"
+            className={`relative flex items-center bg-gray-100 rounded-full overflow-hidden transition-all duration-300 ${isExpanded ? "w-full md:w-64" : "w-10"
                 }`}
         >
             {/* Search Icon */}
@@ -36,6 +36,9 @@ export const SearchBar: React.FC = () => {
                         return;
                     }
                     if (searchQuery.length <= 0) return
+                    if(onSubmit) {
+                        onSubmit()
+                    }
                     router.push(`/search?query=${searchQuery}`)
                 }}
                 className="p-2 h-full text-gray-400 hover:text-gray-800 focus:outline-none"
@@ -53,6 +56,9 @@ export const SearchBar: React.FC = () => {
                 onKeyDown={(event) => {
                     if(event.key === 'Enter'){
                         if (searchQuery.length <= 0) return
+                        if(onSubmit) {
+                            onSubmit()
+                        }
                         router.push(`/search?query=${searchQuery}`)
                     }
                 }}

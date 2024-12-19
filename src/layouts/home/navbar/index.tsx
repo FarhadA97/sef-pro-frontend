@@ -58,13 +58,14 @@ const Sidebar = ({
             </DrawerClose>
           </DrawerHeader>
           <div className="p-4 pb-0">
-            <div className="flex space-x-2">
+            <div className="flex flex-col space-x-2 gap-4">
+            <SearchBar expanded={true} onSubmit={onClose} />
               {categories?.map((c) => (
                 <span
                   key={c.id}
                   className="flex justify-between border-b w-full"
                 >
-                  <Link href={`/shop/${c.id}`} className="text-2xl">
+                  <Link onClick={onClose} href={`/shop/${c.id}`} className="text-2xl">
                     {c.name}
                   </Link>
                   <ChevronRight />

@@ -6,6 +6,7 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 import { ArrowRight, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
+import { useSpring, animated, useInView } from "@react-spring/web";
 
 const heroSectionData = [
   {
@@ -52,7 +53,21 @@ const heroSectionData = [
 ];
 
 export const HeroSection = () => {
-  // State to check if component has mounted
+  const [ref] = useInView({
+    once: true,
+});
+
+  const slideInTop = useSpring({
+    from: { opacity: 0, transform: "translateY(50px)" },
+    to: { opacity: 1, transform: "translateY(0px)" },
+    delay: 300,
+  });
+
+  const slideInBottom = useSpring({
+    from: { opacity: 0, transform: "translateY(-50px)" },
+    to: { opacity: 1, transform: "translateY(0px)" },
+    delay: 200,
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,7 +92,7 @@ export const HeroSection = () => {
 
 
   return (
-    <div className="relative">
+    <div ref={ref} className="relative">
       <button
         className="absolute left-2 z-10 p-2 rounded-full -translate-y-1/2 top-1/2"
         id="prev-button"
@@ -110,8 +125,8 @@ export const HeroSection = () => {
               <div
                 className={`absolute text-center text-white z-12 ${data.textSectionStyles}`}
               >
-                <h1 className="text-4xl font-medium">{data.title}</h1>
-                <div className="mt-2">{data.description}</div>
+                <animated.div style={slideInBottom} className="text-4xl font-medium">{data.title}</animated.div>
+                <animated.div style={slideInTop} className="mt-2">{data.description}</animated.div>
               </div>
             </section>
           </SwiperSlide>
