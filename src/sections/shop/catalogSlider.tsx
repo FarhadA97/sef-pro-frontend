@@ -18,13 +18,13 @@ interface CatalogSliderProps {
   subCategoryId?: string | number;
 }
 
-const ProductData = [
-  { colorClass: 'bg-[#e1be69]', borderClass: 'border-[#e1be69]' },
-  { colorClass: 'bg-[#e62531]', borderClass: 'border-[#e62531]' },
-  { colorClass: 'bg-[#89bba8]', borderClass: 'border-[#89bba8]' },
-  { colorClass: 'bg-[#95d4e4]', borderClass: 'border-[#95d4e4]' },
-  { colorClass: 'bg-[#ccbeb0]', borderClass: 'border-[#ccbeb0]' },
-];
+// const ProductData = [
+//   { colorClass: 'bg-[#e1be69]', borderClass: 'border-[#e1be69]' },
+//   { colorClass: 'bg-[#e62531]', borderClass: 'border-[#e62531]' },
+//   { colorClass: 'bg-[#89bba8]', borderClass: 'border-[#89bba8]' },
+//   { colorClass: 'bg-[#95d4e4]', borderClass: 'border-[#95d4e4]' },
+//   { colorClass: 'bg-[#ccbeb0]', borderClass: 'border-[#ccbeb0]' },
+// ];
 
 // CatalogItem Component
 const CatalogItem = ({ image, title, color }: { image: string; title: string; color: string }) => {

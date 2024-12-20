@@ -3,13 +3,14 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Footer, Navbar } from "@/layouts/home";
 import { ReactQueryClientProvider } from "@/providers/reactQueryClientProvider";
+import { Suspense } from "react";
 
 const poppins = Poppins({
   weight: ['300', '400', '500', '700'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap',
-}) 
+})
 
 export const metadata: Metadata = {
   title: "SEF PRO",
@@ -28,7 +29,9 @@ export default function RootLayout({
       >
         <ReactQueryClientProvider>
           <Navbar />
-          {children}
+          <Suspense fallback={<div>Loading...</div>}>
+            {children}
+          </Suspense>
           <Footer />
         </ReactQueryClientProvider>
       </body>
