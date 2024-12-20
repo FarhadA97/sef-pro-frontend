@@ -31,13 +31,13 @@ export const ProductSlider = ({ products }: { products: Product[] }) => {
         }}
         modules={[Navigation]}
         breakpoints={{
-          992: { slidesPerView: 2, spaceBetween: 5 },
+          768: { slidesPerView: 2, spaceBetween: 5 },
           1024: { slidesPerView: 'auto', spaceBetween: 20 },
         }}
       >
         {products.map((product) => (
           <SwiperSlide className="w-auto md:!w-fit border rounded" key={product.id}>
-            <ProductCard textStyle="min-h-[100px]" imageContainerStyles="w-[450px]" product={product} />
+            <ProductCard textStyle="min-h-[100px]" imageContainerStyles="md:w-[450px]" product={product} />
           </SwiperSlide>
         ))}
       </Swiper>

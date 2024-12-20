@@ -40,7 +40,7 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
   const queryClient = useQueryClient();
   const [currentCategory, setCurrentCategory] = useState<Category | null>(null)
 
-  const localState = JSON.parse(localStorage.getItem('state') as string) as {categoryId: string; productId: string} | null;
+  const localState = JSON.parse(localStorage?.getItem('state') as string) as {categoryId: string; productId: string} | null;
 
   const allCategories = queryClient.getQueryData(['all-categories']) as Category[];
   const isSameProduct = id === localState?.productId;

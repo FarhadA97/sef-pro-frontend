@@ -71,6 +71,12 @@ const Sidebar = ({
                   <ChevronRight />
                 </span>
               ))}
+              <span className="flex justify-between border-b w-full mt-5">
+                  <Link onClick={onClose} href="/about-us" className="text-2xl">
+                    About Us
+                  </Link>
+                  <ChevronRight />
+                </span>
             </div>
           </div>
           <DrawerFooter></DrawerFooter>

@@ -1,6 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { colors, Product } from ".";
 
 interface ProductSpecsFormProps {
@@ -8,7 +14,20 @@ interface ProductSpecsFormProps {
   onAddToCart?: (size: string, quantity: number) => void;
 }
 
-const ColorDisplay = ({colors}:{colors: colors[]} ) => {
+const ColorBox = ({ trigger, tooltipText }: { trigger: JSX.Element, tooltipText: string }) => {
+  return (
+    <TooltipProvider delayDuration={100}>
+      <Tooltip>
+        <TooltipTrigger asChild onClick={() => {console.log("CLICKED")}}>{trigger}</TooltipTrigger>
+        <TooltipContent className="bg-[#1F2937] text-white">
+          <p>{tooltipText}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
+}
+
+const ColorDisplay = ({ colors }: { colors: colors[] }) => {
   // Function to split ID and pad the first part with zero (for 3-digit IDs)
   // const formatId = (id: number) => {
   //   const idStr = id.toString();
@@ -32,38 +51,44 @@ const ColorDisplay = ({colors}:{colors: colors[]} ) => {
   // };
 
   return (
-    <div className="flex w-full gap-5">
-        {colors.map((color) => {
+    <div className="flex flex-wrap w-full gap-5">
+      {colors.map((color) => {
         // const [firstPart, secondPart] = formatId(color.id);
         const hexValues = color.hexValue.split(", ");
-        
+
         return (
-          <div key={color.id} className="">
+          <div key={color.id}>
             {/* Diagonal or Solid Color Display */}
             {hexValues.length === 1 ? (
               // Single color div
-              <div
-                className="rounded mt-2 w-12 h-8"
-                style={{
-                  backgroundColor: hexValues[0],
-                }}
-              ></div>
+              <ColorBox
+                trigger={<div
+                  className="rounded mt-2 w-12 h-8"
+                  style={{
+                    backgroundColor: hexValues[0],
+                  }}
+                ></div>}
+                tooltipText={color.name}
+              />
+
             ) : (
               // Diagonal color split
-              <div
-                className="rounded relative mt-2 w-12 h-8"
-                style={{
-                  background: `linear-gradient(135deg, ${hexValues[0]} 50%, ${hexValues[1]} 50%)`,
-                }}
-              >
-                {/* <div className="absolute top-0 left-0 w-full h-full bg-opacity-50 flex justify-center items-center">
+              <ColorBox
+                trigger={<div
+                  className="rounded relative mt-2 w-12 h-8"
+                  style={{
+                    background: `linear-gradient(135deg, ${hexValues[0]} 50%, ${hexValues[1]} 50%)`,
+                  }}
+                >
+                  {/* <div className="absolute top-0 left-0 w-full h-full bg-opacity-50 flex justify-center items-center">
                   <span className="absolute left-[25%] text-white text-lg font-semibold">{firstPart}</span>
                   <span className="text-white absolute right-[25%] text-lg font-semibold">{secondPart}</span>
                 </div> */}
-              </div>
-            )}
+                </div>}
+                tooltipText={color.name}
+              />
 
-            
+            )}
           </div>
         );
       })}
@@ -111,7 +136,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
         </select>
         <div className="mt-5">
           <p className="text-sm font-semibold">Colors</p>
-          <ColorDisplay colors={product.colors}/>
+          <ColorDisplay colors={product.colors} />
         </div>
       </div>
 
