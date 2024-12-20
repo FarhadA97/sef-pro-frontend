@@ -46,7 +46,7 @@ const Sidebar = ({
   return (
     <Drawer open={open} direction="left">
       <DrawerContent className="z-[10000]">
-        <div className="h-[calc(100vh-60px)]">
+        <div className="h-screen pt-12">
           <DrawerHeader>
             <DrawerTitle className="flex items-center justify-center">
               <img className="h-[120px]" src="/logo-primary.png" />
