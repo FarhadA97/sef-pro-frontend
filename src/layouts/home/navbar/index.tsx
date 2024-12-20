@@ -51,13 +51,13 @@ const Sidebar = ({
             <DrawerTitle className="flex items-center justify-center">
               <img className="h-[120px]" src="/logo-primary.png" />
             </DrawerTitle>
-            <DrawerClose className="absolute right-2">
+            <DrawerClose className="absolute right-[2rem]">
               <button onClick={onClose}>
                 <XIcon />
               </button>
             </DrawerClose>
           </DrawerHeader>
-          <div className="p-4 pb-0">
+          <div className="pl-0 pr-8 pb-0">
             <div className="flex flex-col space-x-2 gap-4">
             <SearchBar expanded={true} onSubmit={onClose} />
               {categories?.map((c) => (
