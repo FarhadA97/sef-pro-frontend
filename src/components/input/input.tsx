@@ -29,7 +29,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         {...props}
       />
       {rightIcon && (
-        <div className="ml-2 text-gray-400">
+        <div className="ml-2 text-gray-400 hidden md:visible">
           {rightIcon}
         </div>
       )}
