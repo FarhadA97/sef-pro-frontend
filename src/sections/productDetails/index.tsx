@@ -107,7 +107,7 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
           <h1 className="text-3xl">{product.title}</h1>
           <div className="mt-8 flex flex-col md:flex-row gap-8 lg:gap-[5rem]">
             <ProductImages images={product.images} />
-            <div className="pl-0 lg:pl-18 w-full lg:w-[40%]">
+            <div className="pl-0 lg:pl-18 w-full lg:w-[70%]">
               <ul>
                 {product.description.map((desc, index) => (
                   <li key={index} className="flex items-center gap-2 mb-1">

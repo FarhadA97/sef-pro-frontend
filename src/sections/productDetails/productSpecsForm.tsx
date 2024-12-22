@@ -114,7 +114,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
     <form className="flex flex-col gap-8 my-8 p-5 border rounded-md">
       {/* Size Selector */}
       <div>
-        {/* <p className="text-2xl mb-5">${product.price.toFixed(2)}</p> */}
+        <p className="text-2xl mb-5">${product.price.toFixed(2)}</p>
         <label
           htmlFor="size"
           className="block text-sm font-medium text-gray-700 mb-1"

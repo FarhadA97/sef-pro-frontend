@@ -31,18 +31,18 @@ export const ProductCard = ({ product, containerStyle, textStyle, imageContainer
   <Link
     href={`/product/${product.id}`}
     onClick={() => localStorage.setItem('state', JSON.stringify({categoryId, productId: product.id}))}
-    className={`group overflow-hidden cursor-pointer ${containerStyle}`}
+    className={`group overflow-hidden cursor-pointer rounded ${containerStyle}`}
   >
     {/* Image and Content */}
-    <div className={`h-full transform group-hover:-translate-y-12 transition-transform duration-300 ${imageContainerStyles}`}>
+    <div className={`h-full flex flex-col justify-between items-center transform group-hover:-translate-y-12 transition-transform duration-300 ${imageContainerStyles}`}>
       <img
         src={product.images[0]}
         alt={product.title}
-        className="w-full h-[400px] object-fit"
+        className="max-w-fit h-[400px] object-fit"
       />
-      <div className="p-4">
+      <div className="self-start flex flex-col p-4">
         <h3 className={`text-lg font-medium group-hover:underline ${textStyle}`}>{product.title}</h3>
-        {/* <p className="text-gray-500">${product.price.toFixed(2)}</p> */}
+        <p className="text-gray-500">${product.price.toFixed(2)}</p>
       </div>
     </div>
 
