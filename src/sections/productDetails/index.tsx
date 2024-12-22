@@ -34,6 +34,7 @@ export interface Product {
   sizes: string;
   description: string[];
   colors: colors[];
+  MOQ: number;
 }
 
 export const ProductPage: React.FC<ProductPage> = ({ id }) => {
@@ -86,7 +87,7 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
     <div className="py-10 px-5 md:px-12 xl:px-20">
       {product && (
         <>
-          {isSameProduct && (
+          {isSameProduct ? (
             <div className="flex gap-1 md:gap-2 mb-5">
               <Link href='/' className="group">
                 <p className="text-xs md:text-sm">Home</p>
@@ -103,11 +104,19 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
               )}
               <p className="text-gray-400 text-xs md:text-sm">{product.title}</p>
             </div>
+          ) : (
+            <div className="flex gap-1 md:gap-2 mb-5">
+              <Link href='/' className="group">
+                <p className="text-xs md:text-sm">Home</p>
+                <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              </Link>/
+              <p className="text-gray-400 text-xs md:text-sm">{product.title}</p>
+            </div>
           )}
           <h1 className="text-3xl">{product.title}</h1>
           <div className="mt-8 flex flex-col md:flex-row gap-8 lg:gap-[5rem]">
             <ProductImages images={product.images} />
-            <div className="pl-0 lg:pl-18 w-full lg:w-[70%]">
+            <div className="pl-0 lg:pl-18 w-full lg:w-[95%]">
               <ul>
                 {product.description.map((desc, index) => (
                   <li key={index} className="flex items-center gap-2 mb-1">

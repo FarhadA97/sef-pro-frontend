@@ -124,11 +124,9 @@ export const Navbar = () => {
     <>
       <nav className="sticky top-0 z-[1000] bg-gray-800 text-black">
         <div className="px-4 flex items-center justify-between h-16">
-          <div className="logo">
-            <Link href="/">
+            <Link className="logo h-[64px] flex items-center justify-center overflow-hidden" href="/">
               <img className="h-[150px]" src="/logo-primary.png" />
             </Link>
-          </div>
           <div className="hidden md:flex space-x-6">
             <NavigationMenu>
               <NavigationMenuList>

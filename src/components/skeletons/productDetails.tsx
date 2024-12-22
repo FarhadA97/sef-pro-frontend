@@ -4,7 +4,7 @@ export const ProductDetailsSkeleton = () => {
             <div className="mb-5">
                 <div className="w-2/3 h-6 bg-gray-300 rounded-md animate-pulse"></div>
             </div>
-            <div className="flex flex-col md:flex-row gap-5">
+            <div className="flex flex-col gap-5 md:flex-row lg:gap-[12rem]">
                 {/* product images */}
                 <div className="flex flex-col lg:flex-row gap-6">
                     {/* Vertical Bar with small image boxes */}

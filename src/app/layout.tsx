@@ -4,6 +4,7 @@ import "./globals.css";
 import { Footer, Navbar } from "@/layouts/home";
 import { ReactQueryClientProvider } from "@/providers/reactQueryClientProvider";
 import { Suspense } from "react";
+import { Loader } from "@/components/loader/loader";
 
 const poppins = Poppins({
   weight: ['300', '400', '500', '700'],
@@ -29,7 +30,7 @@ export default function RootLayout({
       >
         <ReactQueryClientProvider>
           <Navbar />
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div className="flex items-center justify-center h-[100vh]"><Loader className="hidden" /></div>}>
             {children}
           </Suspense>
           <Footer />

@@ -34,7 +34,7 @@ const CatalogItem = ({id, image ,title ,color}: {id: number, image: string, titl
       />
       {/* Overlay Text */}
       <div className={`absolute inset-0 flex justify-center bg-opacity-30 text-white text-lg font-semibold transition-opacity duration-1000 group-hover:bg-opacity-60 ${color}`}>
-        <p className="absolute z-20 bottom-6 text-black text-[25px] font-semibold transition-all duration-500 group-hover:bottom-1 group-hover:text-[18px] group-hover:text-white">
+        <p className="p-2 w-full bg-gray-200 bg-opacity-[0.85] text-center absolute z-20 bottom-6 text-black text-[25px] font-semibold transition-all duration-500 group-hover:bottom-1 group-hover:text-[18px] group-hover:text-white group-hover:p-0 group-hover:bg-transparent">
           {title}
         </p>
       </div>

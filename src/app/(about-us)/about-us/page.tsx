@@ -1,3 +1,5 @@
+import { Mail, Phone } from "lucide-react";
+
 export default function AboutUsPage() {
   return (
     <div className="flex flex-col gap-5 p-5 md:p-12 lg:px-[8rem]">
@@ -9,39 +11,41 @@ export default function AboutUsPage() {
         <div className="flex flex-col gap-8">
           <p className="text-lg">
             <strong>SEF PRO PTY LTD</strong> is a well-established Manufacturer
-            of Sports Wears, Active Wears, Team Wears, CAPS, Bags & work wears.
-            We produce a wide range of excellent quality customized Products as
-            per your Design & Logos.
+            of workwear, caps, and bags tailored to your designs and logos.
+            Whether you&apos;re a business, team, or individual, we specialize
+            in crafting products that reflect your unique vision.
           </p>
           <p className="text-lg">
-            With over 7 years of manufacturing experience and knowledge, we have
-            built a strong reputation as a top quality manufacturing company.
-            Our objective, from the very beginning, has been to provide top
-            quality uniforms & Fitness Accessories for the Top Brands.
+            With over seven years of expertise, we have earned a reputation for
+            delivering top-quality workwear. Our mission has always been to
+            provide outstanding custom gear that meets the highest standards of
+            performance and style.
           </p>
           <p className="text-lg">
-            We have DEDICATED production arrangements for all Kinds of Sports
-            Wears & Fitness Products and we are proud to offer products in every
-            customized fabric even in organic, recycled and sustainable
-            materials.
+            Explore our customizable fabrics and elevate your wardrobe with
+            eco-friendly choices. Your journey to superior quality starts with
+            us!
           </p>
         </div>
       </div>
       <div>
-        <h1 className="underline mb-2 font-medium">Contact Us</h1>
-        <div className="flex gap-5 mt-2">
+        <div className="flex flex-col gap-5 mt-2 mb-5">
           <div>
             <p className="underline">Phone/Whatsapp:</p>
-            <p>+61 412 131 460</p>
+            <p className="flex items-center mt-1 gap-2"><Phone size={18} /> +61 412 131 460</p>
           </div>
           <div>
-            <p className="underline">Fax:</p>
-            <p>08123456789</p>
+            <p className="underline">Email:</p>
+            <a href="mailto:sales@sefpro.com.au">
+              <p className="flex items-center mt-1 gap-2"><Mail size={18}/>sales@sefpro.com.au</p>
+            </a>
+            <a href="mailto:kalas@sefpro.com.au">
+              <p className="flex items-center mt-1 gap-2"><Mail size={18}/>kalas@sefpro.com.au</p>
+            </a>
+            <a href="mailto:info@sefpro.com.au">
+              <p className="flex items-center mt-1 gap-2"><Mail size={18}/>info@sefpro.com.au</p>
+            </a>
           </div>
-          {/* <div>
-            <p className="underline">Whatsapp:</p>
-            <p>+61 412 131 460</p>
-          </div> */}
         </div>
         <p className="underline font-medium mt-2 mb-2">Sales Office Address:</p>
         <p>SEF PRO PTY LTD</p>

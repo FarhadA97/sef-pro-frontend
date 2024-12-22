@@ -14,6 +14,8 @@ interface ProductSpecsFormProps {
   onAddToCart?: (size: string, quantity: number) => void;
 }
 
+const deliveryCharges = 3;
+
 const ColorBox = ({ trigger, tooltipText }: { trigger: JSX.Element, tooltipText: string }) => {
   return (
     <TooltipProvider delayDuration={100}>
@@ -114,7 +116,11 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
     <form className="flex flex-col gap-8 my-8 p-5 border rounded-md">
       {/* Size Selector */}
       <div>
-        <p className="text-2xl mb-5">${product.price.toFixed(2)}</p>
+        <p className="text-2x">${product.price.toFixed(2)}</p>
+        <div className="flex items-center gap-1 mb-5">
+          <p className="text-xs font-[500]">{`(Delivery Charges: `}</p>
+          <p className="text-xs ">{`$${deliveryCharges.toFixed(2)})`}</p>
+        </div>
         <label
           htmlFor="size"
           className="block text-sm font-medium text-gray-700 mb-1"
@@ -135,8 +141,12 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
           ))}
         </select>
         <div className="mt-5">
-          <p className="text-sm font-semibold">Colors</p>
+          <p className="text-sm font-[500]">Colors</p>
           <ColorDisplay colors={product.colors} />
+        </div>
+        <div className="mt-5 flex items-center gap-2">
+          <p className="text-sm font-[500]">Maximum Order Quantity: </p>
+          <p className="text-sm ">{product.MOQ}</p>
         </div>
       </div>
 
