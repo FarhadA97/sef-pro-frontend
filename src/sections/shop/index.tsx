@@ -34,7 +34,7 @@ export const ProductCard = ({ product, containerStyle, textStyle, imageContainer
     className={`group overflow-hidden cursor-pointer rounded ${containerStyle}`}
   >
     {/* Image and Content */}
-    <div className={`h-full flex flex-col justify-between items-center transform group-hover:-translate-y-12 transition-transform duration-300 ${imageContainerStyles}`}>
+    <div className={`h-full flex flex-col justify-between items-center transform group-hover:-translate-y-12 transition-transform duration-300 overflow-hidden ${imageContainerStyles}`}>
       <img
         src={product.images[0]}
         alt={product.title}
