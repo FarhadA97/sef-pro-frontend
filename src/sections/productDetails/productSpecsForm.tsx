@@ -133,7 +133,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
       <div>
         <p className="text-2x">${product.price.toFixed(2)}</p>
         <div className="flex items-center gap-1 mb-5">
-          <p className="text-xs font-[500]">{`(Delivery Charges: `}</p>
+          {/* <p className="text-xs font-[500]">{`(Delivery Charges: `}</p> */}
           <p className="text-xs ">{"(Delivery Charges Will be applied)"}</p>
         </div>
         <label
