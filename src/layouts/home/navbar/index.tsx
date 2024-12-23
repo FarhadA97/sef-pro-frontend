@@ -35,7 +35,6 @@ export interface Category {
 }
 
 const Sidebar = ({
-  categories,
   open,
   onClose,
 }: {
