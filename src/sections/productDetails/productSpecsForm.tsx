@@ -14,7 +14,7 @@ interface ProductSpecsFormProps {
   onAddToCart?: (size: string, quantity: number) => void;
 }
 
-const deliveryCharges = 3;
+// const deliveryCharges = 3;
 
 const ColorBox = ({
   trigger,
