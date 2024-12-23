@@ -34,6 +34,7 @@ export interface Product {
   sizes: string;
   description: string[];
   colors: colors[];
+  material: string;
   MOQ: number;
 }
 
@@ -144,7 +145,13 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
-              <AccordionTrigger>Sizes/Colors</AccordionTrigger>
+              <AccordionTrigger>Material</AccordionTrigger>
+              <AccordionContent>
+                <p className="mb-2">{product.material}</p>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3">
+              <AccordionTrigger>Colors/Sizes</AccordionTrigger>
               <AccordionContent className="flex flex-col gap-2">
                 <div className="flex gap-2">
                   <p className="font-medium">Colors:</p>
