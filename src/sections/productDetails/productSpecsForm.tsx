@@ -6,7 +6,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 import { colors, Product } from ".";
 
 interface ProductSpecsFormProps {
@@ -16,18 +16,31 @@ interface ProductSpecsFormProps {
 
 const deliveryCharges = 3;
 
-const ColorBox = ({ trigger, tooltipText }: { trigger: JSX.Element, tooltipText: string }) => {
+const ColorBox = ({
+  trigger,
+  tooltipText,
+}: {
+  trigger: JSX.Element;
+  tooltipText: string;
+}) => {
   return (
     <TooltipProvider delayDuration={100}>
       <Tooltip>
-        <TooltipTrigger asChild onClick={() => {console.log("CLICKED")}}>{trigger}</TooltipTrigger>
+        <TooltipTrigger
+          asChild
+          onClick={() => {
+            console.log("CLICKED");
+          }}
+        >
+          {trigger}
+        </TooltipTrigger>
         <TooltipContent className="bg-[#1F2937] text-white">
           <p>{tooltipText}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
-  )
-}
+  );
+};
 
 const ColorDisplay = ({ colors }: { colors: colors[] }) => {
   // Function to split ID and pad the first part with zero (for 3-digit IDs)
@@ -64,32 +77,34 @@ const ColorDisplay = ({ colors }: { colors: colors[] }) => {
             {hexValues.length === 1 ? (
               // Single color div
               <ColorBox
-                trigger={<div
-                  className="rounded mt-2 w-12 h-8"
-                  style={{
-                    backgroundColor: hexValues[0],
-                  }}
-                ></div>}
+                trigger={
+                  <div
+                    className="rounded mt-2 w-12 h-8"
+                    style={{
+                      backgroundColor: hexValues[0],
+                    }}
+                  ></div>
+                }
                 tooltipText={color.name}
               />
-
             ) : (
               // Diagonal color split
               <ColorBox
-                trigger={<div
-                  className="rounded relative mt-2 w-12 h-8"
-                  style={{
-                    background: `linear-gradient(135deg, ${hexValues[0]} 50%, ${hexValues[1]} 50%)`,
-                  }}
-                >
-                  {/* <div className="absolute top-0 left-0 w-full h-full bg-opacity-50 flex justify-center items-center">
+                trigger={
+                  <div
+                    className="rounded relative mt-2 w-12 h-8"
+                    style={{
+                      background: `linear-gradient(135deg, ${hexValues[0]} 50%, ${hexValues[1]} 50%)`,
+                    }}
+                  >
+                    {/* <div className="absolute top-0 left-0 w-full h-full bg-opacity-50 flex justify-center items-center">
                   <span className="absolute left-[25%] text-white text-lg font-semibold">{firstPart}</span>
                   <span className="text-white absolute right-[25%] text-lg font-semibold">{secondPart}</span>
                 </div> */}
-                </div>}
+                  </div>
+                }
                 tooltipText={color.name}
               />
-
             )}
           </div>
         );
@@ -101,7 +116,7 @@ const ColorDisplay = ({ colors }: { colors: colors[] }) => {
 export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
   product,
 }) => {
-  const [selectedSize, setSelectedSize] = useState<string>('');
+  const [selectedSize, setSelectedSize] = useState<string>("");
   // const [quantity, setQuantity] = useState(1);
 
   // const handleQuantityChange = (value: number) => {
@@ -119,7 +134,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
         <p className="text-2x">${product.price.toFixed(2)}</p>
         <div className="flex items-center gap-1 mb-5">
           <p className="text-xs font-[500]">{`(Delivery Charges: `}</p>
-          <p className="text-xs ">{`$${deliveryCharges.toFixed(2)})`}</p>
+          <p className="text-xs ">{"(Delivery Charges Will be applied)"}</p>
         </div>
         <label
           htmlFor="size"
@@ -134,7 +149,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
           className="block w-[250px] p-2 border border-gray-300 rounded-sm shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         >
           <option defaultChecked>Choose an option</option>
-          {product.sizes.split('/').map((size) => (
+          {product.sizes.split("/").map((size) => (
             <option key={size} value={size}>
               {size}
             </option>
@@ -145,7 +160,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
           <ColorDisplay colors={product.colors} />
         </div>
         <div className="mt-5 flex items-center gap-2">
-          <p className="text-sm font-[500]">Maximum Order Quantity: </p>
+          <p className="text-sm font-[500]">Minimum Order Quantity: </p>
           <p className="text-sm ">{product.MOQ}</p>
         </div>
       </div>

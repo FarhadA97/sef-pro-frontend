@@ -32,18 +32,17 @@ export default function AboutUsPage() {
         <div className="flex flex-col gap-5 mt-2 mb-5">
           <div>
             <p className="underline">Phone/Whatsapp:</p>
-            <p className="flex items-center mt-1 gap-2"><Phone size={18} /> +61 412 131 460</p>
+            <p className="flex items-center mt-1 gap-2">
+              <Phone size={18} /> +61 412 131 460
+            </p>
           </div>
           <div>
             <p className="underline">Email:</p>
-            <a href="mailto:sales@sefpro.com.au">
-              <p className="flex items-center mt-1 gap-2"><Mail size={18}/>sales@sefpro.com.au</p>
-            </a>
-            <a href="mailto:kalas@sefpro.com.au">
-              <p className="flex items-center mt-1 gap-2"><Mail size={18}/>kalas@sefpro.com.au</p>
-            </a>
             <a href="mailto:info@sefpro.com.au">
-              <p className="flex items-center mt-1 gap-2"><Mail size={18}/>info@sefpro.com.au</p>
+              <p className="flex items-center mt-1 gap-2">
+                <Mail size={18} />
+                info@sefpro.com.au
+              </p>
             </a>
           </div>
         </div>
