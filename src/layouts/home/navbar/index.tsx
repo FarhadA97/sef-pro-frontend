@@ -60,7 +60,7 @@ const Sidebar = ({
           <div className="pl-0 pr-6 pb-0">
             <div className="flex flex-col space-x-2 gap-4">
             <SearchBar expanded={true} onSubmit={onClose} />
-              {categories?.map((c) => (
+              {/* {categories?.map((c) => (
                 <span
                   key={c.id}
                   className="flex justify-between border-b w-full"
@@ -70,13 +70,25 @@ const Sidebar = ({
                   </Link>
                   <ChevronRight />
                 </span>
-              ))}
+              ))} */}
+              <span className="flex justify-between border-b w-full mt-5">
+                  <Link onClick={onClose} href="/" className="text-2xl">
+                    Home
+                  </Link>
+                  <ChevronRight />
+              </span>
               <span className="flex justify-between border-b w-full mt-5">
                   <Link onClick={onClose} href="/about-us" className="text-2xl">
                     About Us
                   </Link>
                   <ChevronRight />
                 </span>
+                <span className="flex justify-between border-b w-full mt-5">
+                  <Link onClick={onClose} href="/contact-us" className="text-2xl">
+                    Contact Us
+                  </Link>
+                  <ChevronRight />
+              </span>
             </div>
           </div>
           <DrawerFooter></DrawerFooter>
@@ -186,7 +198,16 @@ export const Navbar = () => {
                     <NavigationMenuLink
                       className={`${navigationMenuTriggerStyle()} bg-transparent text-white`}
                     >
-                      About Us
+                      About
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/contact-us" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={`${navigationMenuTriggerStyle()} bg-transparent text-white`}
+                    >
+                      Contact
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>

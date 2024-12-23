@@ -92,7 +92,11 @@ export const Footer = () => {
             </span>
             <ul className="mt-5 flex flex-col gap-2">
               <Link href='/about-us' className="group block w-fit">
-                <li>About Us</li>
+                <li>About</li>
+                <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-white"></span>
+              </Link>
+              <Link href='/contact-us' className="group block w-fit">
+                <li>Contact</li>
                 <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-white"></span>
               </Link>
             </ul>
