@@ -40,8 +40,8 @@ export const ProductCard = ({ product, containerStyle, textStyle, imageContainer
         alt={product.title}
         className="max-w-fit h-[400px] object-fit"
       />
-      <div className="self-start flex flex-col p-4">
-        <h3 className={`text-lg font-medium group-hover:underline ${textStyle}`}>{product.title}</h3>
+      <div className={`self-start flex flex-col p-4 ${textStyle}`}>
+        <h3 className="text-lg font-medium group-hover:underline">{product.title}</h3>
         <p className="text-gray-500">${product.price.toFixed(2)}</p>
       </div>
     </div>
