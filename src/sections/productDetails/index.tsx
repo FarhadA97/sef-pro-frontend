@@ -84,6 +84,17 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
     );
   }
 
+  if (!product) {
+    return (
+      <div className="h-[600px] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-5">
+          <SearchXIcon width={100} height={100} />
+          <h1>No such product exist!</h1>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="py-10 px-5 md:px-12 xl:px-20">
       {product && (

@@ -42,7 +42,15 @@ const ColorBox = ({
   );
 };
 
-const ColorDisplay = ({ colors }: { colors: colors[] }) => {
+const ColorDisplay = ({
+  colors,
+  selectedColor,
+  onSelect
+}: {
+  colors: colors[];
+  selectedColor: colors | null;
+  onSelect: (color: colors) => void;
+}) => {
   // Function to split ID and pad the first part with zero (for 3-digit IDs)
   // const formatId = (id: number) => {
   //   const idStr = id.toString();
@@ -72,14 +80,16 @@ const ColorDisplay = ({ colors }: { colors: colors[] }) => {
         const hexValues = color.hexValue.split(", ");
 
         return (
-          <div key={color.id}>
+          <div onClick={() => onSelect(color)} key={color.id}>
             {/* Diagonal or Solid Color Display */}
             {hexValues.length === 1 ? (
               // Single color div
               <ColorBox
                 trigger={
                   <div
-                    className="rounded mt-2 w-12 h-8"
+                    className={`rounded mt-2 w-12 h-8 border-2 border-transparent transition-all ${
+                      selectedColor?.id === color.id ? "!border-[#1F2937]" : ""
+                    }`}
                     style={{
                       backgroundColor: hexValues[0],
                     }}
@@ -92,7 +102,9 @@ const ColorDisplay = ({ colors }: { colors: colors[] }) => {
               <ColorBox
                 trigger={
                   <div
-                    className="rounded relative mt-2 w-12 h-8"
+                    className={`rounded relative mt-2 w-12 h-8 border-2 border-white transition-all ${
+                      selectedColor?.id === color.id ? "!border-[#1F2937]" : ""
+                    }`}
                     style={{
                       background: `linear-gradient(135deg, ${hexValues[0]} 50%, ${hexValues[1]} 50%)`,
                     }}
@@ -117,6 +129,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
   product,
 }) => {
   const [selectedSize, setSelectedSize] = useState<string>("");
+  const [selectedColor, setSelectedColor] = useState<colors | null>(null);
   // const [quantity, setQuantity] = useState(1);
 
   // const handleQuantityChange = (value: number) => {
@@ -126,6 +139,10 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
   // const handleAddToCart = () => {
   //   // onAddToCart(selectedSize, quantity);
   // };
+
+  const handleColorSelect = (color: colors) => {
+    setSelectedColor(color && color);
+  }
 
   return (
     <form className="flex flex-col gap-8 my-8 p-5 border rounded-md">
@@ -157,7 +174,7 @@ export const ProductSpecsForm: React.FC<ProductSpecsFormProps> = ({
         </select>
         <div className="mt-5">
           <p className="text-sm font-[500]">Colors</p>
-          <ColorDisplay colors={product.colors} />
+          <ColorDisplay selectedColor={selectedColor} colors={product.colors} onSelect={handleColorSelect} />
         </div>
         <div className="mt-5 flex items-center gap-2">
           <p className="text-sm font-[500]">Minimum Order Quantity: </p>
