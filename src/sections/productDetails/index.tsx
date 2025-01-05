@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { ProductImages } from "./productImages";
 import { ProductSpecsForm } from "./productSpecsForm";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { CircleDot, SearchXIcon } from "lucide-react";
+import { CircleDot, SearchXIcon, Tag } from "lucide-react";
 import api from "@/lib/api";
 import { ProductDetailsSkeleton } from "@/components/skeletons";
 import {
@@ -125,6 +125,10 @@ export const ProductPage: React.FC<ProductPage> = ({ id }) => {
               <p className="text-gray-400 text-xs md:text-sm">{product.title}</p>
             </div>
           )}
+          <div className="flex gap-1 items-center mb-1">
+            <Tag size={18}/>
+            <p className="text-lg text-gray-600">{product.id}</p>
+          </div>
           <h1 className="text-3xl">{product.title}</h1>
           <div className="mt-8 flex flex-col md:flex-row gap-8 lg:gap-[5rem]">
             <ProductImages images={product.images} />
